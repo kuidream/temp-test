@@ -1,0 +1,41 @@
+<view class="container">
+  <hs-header
+    title="{{i18n.t('meter_device')}}"
+    leftImage="/assets/images/hs/undo.png"
+    bind:lefttap="handleBack"
+  />
+  <view class="content">
+    <!-- 列表标题 -->
+    <view class="list-title">{{i18n.t('meter_device_list')}}</view>
+
+    <!-- 设备列表 -->
+    <view class="meter-list">
+      <!-- 加载状态 -->
+      <view wx:if="{{loading}}" class="loading-container">
+        <text class="loading-text">{{i18n.t('loading')}}</text>
+      </view>
+      <!-- 设备列表内容 -->
+      <view wx:elif="{{meters.length > 0}}">
+        <meter-card
+          ty:for="{{meters}}"
+          ty:key="id"
+          sn="{{item.sn}}"
+          storeDeviceNum="{{item.storeDeviceNum}}"
+          status-text="{{item.bindStatus}}"
+          online="{{item.online}}"
+          name="{{item.name}}"
+          date="{{item.bindTime}}"
+          device-id="{{item.id}}"
+          circuit="{{item.circuit}}"
+          type="{{item.type}}"
+          showSetting="{{true}}"
+          bindsetting="goBound"
+        />
+      </view>
+      <!-- 无数据提示 -->
+      <view wx:else class="no-data-container">
+        <text class="no-data-text">{{i18n.t('no_data')}}</text>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,29 @@
+<view class="container">
+  <!-- hideBack prevents default back icon which shows a white block when canGoBack is true -->
+  <hs-header
+    hideBack
+    title="{{storeName}}"
+    titleIcon="/assets/images/comm/change-store.png"
+    bind:titleicontap="onChangeStore"
+    leftImage="/assets/images/comm/person.png"
+    bindlefttap="toggleRolePopup"
+    rightImage="/assets/images/comm/call.png"
+    bind:righttap="onCall"
+  />
+  <top-tabs current="store" bind:change="onTabChange" />
+
+  <view wx:if="{{showRolePopup}}" class="role-popup">
+    <view class="option {{role==='store'?'active':''}}" data-role="store" bindtap="onSelectRole"
+      >{{i18n.t('role_store')}}</view
+    >
+    <view class="option {{role==='install'?'active':''}}" data-role="install" bindtap="onSelectRole"
+      >{{i18n.t('role_install')}}</view
+    >
+  </view>
+  <view class="content-area">
+    <view wx:if="{{role === 'store'}}"></view>
+    <view wx:else>
+      <home-install bind:change="onTabChange" />
+    </view>
+  </view>
+</view>

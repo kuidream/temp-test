@@ -1,0 +1,5 @@
+<view class="install-actions">
+  <button class="primary" bindtap="goNetwork">{{i18n.t('go_network')}}</button>
+  <button class="primary" bindtap="goNetworkSuccess">{{i18n.t('simulate_network')}}</button>
+  <button class="secondary" bindtap="goMeter">{{i18n.t('meter_binding')}}</button>
+</view>

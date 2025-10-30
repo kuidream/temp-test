@@ -1,0 +1,34 @@
+<view class="hs-header">
+  <!-- 左边按钮/图片 -->
+  <view class="hs-header__left" wx:if="{{leftImage || canGoBack}}">
+    <image
+      wx:if="{{leftImage}}"
+      class="hs-header__img"
+      src="{{leftImage}}"
+      mode="aspectFit"
+      bindtap="onLeftTap"
+    />
+    <view wx:else class="hs-header__icon plus-icon-back-arrow" bindtap="onLeftTap"></view>
+  </view>
+
+  <!-- 中间标题，始终居中 -->
+  <view class="hs-header__text" wx:if="{{title}}">
+    <text>{{title}}</text>
+    <view wx:if="{{titleIcon}}" class="hs-header__title-icon" bindtap="onTitleIconTap">
+      <image src="{{titleIcon}}" mode="aspectFit" />
+    </view>
+  </view>
+
+  <!-- 右边按钮/文字/图片 -->
+  <view class="hs-header__right" wx:if="{{rightText || rightImage}}">
+    <image
+      wx:if="{{rightImage}}"
+      class="hs-header__img"
+      src="{{rightImage}}"
+      mode="aspectFit"
+      bindtap="onRightTap"
+    />
+    <text wx:else bindtap="onRightTap">{{rightText}}</text>
+  </view>
+</view>
+<view class="hs-header__placeholder"></view>

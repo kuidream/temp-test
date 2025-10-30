@@ -1,0 +1,32 @@
+<view wx:if="{{show}}" class="popup-mask" bindtap="onCancel"></view>
+<view wx:if="{{show}}" class="calendar-popup">
+  <view class="head">
+   <view class="cancel" bindtap="onCancel">{{i18n.t('cancel')}}</view>
+   <view class="confirm" bindtap="onConfirm">{{i18n.t('confirm')}}</view>
+  </view>
+  <view class="header">
+    <view class="month-nav">
+      <view class="icon-bg">
+        <image class="empty-img" src="/assets/images/left.png" bindtap="prevMonth" />
+      </view>
+      <view class="title">{{currentYear}}{{i18n.t('year')}}{{currentMonth}}{{i18n.t('month')}}</view>
+      <view class="icon-bg">
+        <image class="empty-img" src="/assets/images/right.png"  bindtap="nextMonth"/>
+      </view>
+    </view>
+  </view>
+  <view class="week-row">
+    <view ty:for="{{weekDays}}" class="week-day">{{item}}</view>
+  </view>
+  <view class="days">
+    <view
+      ty:for="{{days}}"
+      ty:key="index"
+      class="day {{item.class}}"
+      data-date="{{item.date}}"
+      bindtap="selectDay"
+    >
+      {{item.day}}
+    </view>
+  </view>
+</view>

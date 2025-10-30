@@ -1,0 +1,84 @@
+import F2 from '@antv/f2'
+import { documentAdapter } from '@tuya-miniapp/rjs-adapter'
+
+documentAdapter()
+let chart
+
+const EMPTY_HOURLY_DATA = [
+  { day: '00:00', value: 0 },
+  { day: '04:00', value: 20 },
+  { day: '08:00', value: 40 },
+  { day: '12:00', value: 60 },
+  { day: '16:00', value: 80 },
+  { day: '20:00', value: 100 },
+]
+
+const EMPTY_DAILY_DATA = [
+  { day: '01-01', value: 0 },
+  { day: '01-06', value: 20 },
+  { day: '01-11', value: 40 },
+  { day: '01-16', value: 60 },
+  { day: '01-21', value: 80 },
+  { day: '01-26', value: 100 },
+]
+
+function getEmptyData(periodIndex) {
+  const source = periodIndex === 0 ? EMPTY_HOURLY_DATA : EMPTY_DAILY_DATA
+  return source.map((item) => ({ ...item }))
+}
+
+function getEmptyValueScale(type) {
+  if (type === '28' || type === 'tempSensor') {
+    return { min: 0, max: 50, tickCount: 5 }
+  }
+  return { min: 0, max: 100, tickCount: 5 }
+}
+
+export default Render({
+  async draw(type, data, options = {}) {
+    if (!chart) {
+      const canvas = await getCanvasById('deviceChart')
+      chart = new F2.Chart({ el: canvas, pixelRatio: getSystemInfo().pixelRatio || 2 })
+    }
+
+    const list = Array.isArray(data) ? data : []
+    const { empty = list.length === 0, periodIndex = 0 } = options
+    const rawData = empty ? getEmptyData(periodIndex) : list
+    const src = rawData.map((item) => ({
+      x: item.day || item.time,
+      value: item.value,
+    }))
+    const unit = type === '28' || type === 'tempSensor' ? '℃' : 'lx'
+
+    chart.clear()
+    chart.source(src, {
+      x: { range: [0, 1] },
+      value: empty ? getEmptyValueScale(type) : { tickCount: 5 },
+    })
+    chart.axis('x', {
+      label: (text, index, total) => {
+        const interval = Math.ceil(total / 5)
+        const show = index === 0 || index === total - 1 || index % interval === 0
+        return { text: show ? text : '' }
+      },
+    })
+    chart.axis('value', {
+      label: (text) => ({ text: `${text}${unit}` }),
+    })
+
+    if (!empty) {
+      chart
+        .area()
+        .position('x*value')
+        .shape('smooth')
+        .color('rgba(10, 225, 239, 1)')
+        .style({ fill: 'l(90) 0:rgba(4,191,218,0.0001) 1:rgba(4,191,218,0)' })
+      chart.line().position('x*value').color('rgba(10, 225, 239, 1)').shape('smooth')
+      chart.tooltip({ showCrosshairs: true })
+    } else {
+      chart.tooltip(false)
+    }
+
+    chart.render()
+  },
+})

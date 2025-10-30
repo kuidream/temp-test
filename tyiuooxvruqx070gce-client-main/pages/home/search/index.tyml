@@ -1,0 +1,47 @@
+<view class="search-page">
+  <hs-header
+    title="{{i18n.t('search_store')}}"
+    leftImage="/assets/images/comm/arrow-left.png"
+    bindlefttap="onBack"
+  />
+  <view class="search-box">
+    <input
+      class="search-input"
+      placeholder="{{i18n.t('search_store_id_placeholder')}}"
+      placeholder-style="color:#A3ACB9;"
+      value="{{query}}"
+      bindinput="onInput"
+      confirm-type="search"
+      bindconfirm="onSearch"
+    />
+    <view class="icon-wrapper search-wrapper" bindtap="toSearchResult">
+      <view class="plus-icon-search search-icon"></view>
+    </view>
+  </view>
+  <view class="result-list">
+    <block ty:if="{{results.length}}">
+      <view
+        ty:for="{{results}}"
+        ty:for-item="result"
+        class="result-item"
+        data-name="{{result.storeName}}"
+        data-id="{{result.storeId}}"
+        data-address="{{result.address}}"
+        data-contacts="{{result.contacts}}"
+        data-phone="{{result.phone}}"
+        bindtap="selectResult"
+      >
+        <view class="store-name">{{result.storeName}}</view>
+        <view class="store-code-row">
+          <text class="code-label">{{i18n.t('store_code_label')}}</text>
+          <text class="code-label">{{result.storeId}}</text>
+        </view>
+      </view>
+    </block>
+    <block ty:else>
+      <view class="empty">
+        <image class="empty-img" src="/assets/images/comm/no-store-sel.png" />
+      </view>
+    </block>
+  </view>
+</view>

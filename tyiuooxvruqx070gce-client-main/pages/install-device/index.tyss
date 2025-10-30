@@ -1,0 +1,252 @@
+.container {
+  background: #f6f7fb;
+  box-sizing: border-box;
+}
+.role-popup {
+  position: fixed;
+  top: 68px;
+  top: calc(68px + constant(safe-area-inset-top));
+  top: calc(68px + env(safe-area-inset-top));
+  left: 16px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1001;
+}
+.role-popup .option {
+  padding: 6px 12px;
+  white-space: nowrap;
+}
+.role-popup .option.active {
+  color: #015ac5;
+}
+.content {
+  padding: 24px 16px;
+  margin-bottom: 78px;
+  margin-top: 40px;
+}
+.select-device-type {
+  font-size: 16px;
+  font-weight: 400;
+  color: rgba(51, 51, 51, 0.86);
+}
+/* 顶部筛选条 */
+.filter-bar {
+  width: 100%;
+  margin-top: 24rpx;
+  margin-bottom: 16rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.seg {
+  width: 100%;
+  display: flex;
+  gap: 16rpx;
+  background: transparent;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.seg-item {
+  padding: 10px 0;
+  font-size: 16px;
+  color: rgba(153, 153, 153, 0.58); /* 未选中灰色 */
+  line-height: 1;
+  border-bottom: 2rpx solid transparent; /* 默认无横线 */
+  cursor: pointer;
+  user-select: none;
+}
+
+.seg-item.active {
+  color: rgba(51, 51, 51, 1); /* 选中黑色字体 */
+  border-bottom-color: rgba(51, 51, 51, 1); /* 选中时底部蓝色横线 */
+}
+
+.all-picker {
+  /* 让 picker 可点击区域更大 */
+  min-width: 160rpx;
+}
+.all-btn {
+  padding: 10px 16px;
+  font-size: 16px;
+  background: #fff;
+  border: 1rpx solid #e6e8eb;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 4px;
+  color: rgba(51, 51, 51, 1);
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.04);
+  margin: 8px 0;
+}
+.icon-caret {
+  font-size: 24rpx;
+  color: #99a1ab;
+}
+.arrow-down {
+  width: 18px;
+  height: 18px;
+}
+
+/* 列表与卡片 */
+.meter-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+  padding-bottom: 24rpx;
+}
+
+/* 外层容器用来定位右侧按钮 */
+.meter-item {
+  position: relative;
+}
+
+/* 如果 meter-card 支持 ext-class，这里能统一控制外观 */
+.meter-card-ui {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  padding-right: 90px; /* 给右侧按钮留空间 */
+  overflow: hidden;
+}
+
+/* 弹窗样式 */
+.modal-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  width: 560rpx;
+  background: #fff;
+  border-radius: 12px;
+  padding: 32rpx;
+  box-sizing: border-box;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24rpx 32rpx;
+  margin: -32rpx -32rpx 24rpx;
+  border-bottom: 1rpx solid #e6e8eb;
+}
+
+.modal-title {
+  font-size: 16px;
+  color: rgba(0, 0, 0, 1);
+}
+
+.modal-body {
+  text-align: center;
+  font-size: 16px;
+  color: rgba(51, 51, 51, 1);
+  padding-bottom: 24rpx;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: center;
+  gap: 32rpx;
+}
+
+.modal-btn {
+  border-radius: 12rpx;
+  padding: 16rpx 48rpx;
+  font-size: 14px;
+}
+
+.modal-btn.confirm {
+  background: #015ac5;
+  color: #fff;
+  border: none;
+}
+
+.modal-btn.cancel {
+  background: transparent;
+  color: rgba(88, 91, 97, 1);
+  border: 1rpx solid rgba(217, 217, 217, 1);
+}
+
+.progress-header {
+  justify-content: space-between;
+  border: none;
+}
+.unbind-header {
+  border: none;
+}
+
+.close-img {
+  width: 32rpx;
+  height: 32rpx;
+}
+
+.progress-wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: end;
+}
+
+.progress-wrapper slider {
+  flex: 1;
+}
+
+.percent-text {
+  color: #015ac5;
+  font-size: 16px;
+  text-align: end;
+}
+
+.fail-text {
+  color: rgba(235, 51, 58, 1);
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.success-text {
+  color: #00b42a;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* 右侧胶囊按钮（蓝色“解绑”） */
+.pill-btn {
+  position: absolute;
+  right: 24rpx;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 64rpx;
+  line-height: 64rpx;
+  padding: 0 32rpx;
+  border-radius: 9999rpx;
+  font-size: 26rpx;
+  border: none;
+}
+.pill-btn.primary {
+  background: #1677ff;
+  color: #fff;
+  box-shadow: 0 8rpx 20rpx rgba(22, 119, 255, 0.25);
+}
+
+/* 兼容 iOS/Android 不同字体渲染，让标题对齐更稳 */
+text,
+view {
+  vertical-align: middle;
+}

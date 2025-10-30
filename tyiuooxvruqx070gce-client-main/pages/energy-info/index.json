@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "hs-header": "/components/header/index",
+    "date-range-calendar": "/components/date-range-calendar/index",
+    "mploading": "@tuya-miniapp/miniapp-components-plus/loading/index"
+  }
+}

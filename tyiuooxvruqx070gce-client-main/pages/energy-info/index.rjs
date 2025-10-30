@@ -1,0 +1,86 @@
+import F2 from '@antv/f2'
+import { documentAdapter } from '@tuya-miniapp/rjs-adapter'
+documentAdapter()
+
+let chart
+
+const EMPTY_HOURLY_DATA = [
+  { time: '00:00', value: 0 },
+  { time: '04:00', value: 20 },
+  { time: '08:00', value: 40 },
+  { time: '12:00', value: 60 },
+  { time: '16:00', value: 80 },
+  { time: '20:00', value: 100 },
+]
+
+const EMPTY_DAILY_DATA = [
+  { time: '01-01', value: 0 },
+  { time: '01-06', value: 20 },
+  { time: '01-11', value: 40 },
+  { time: '01-16', value: 60 },
+  { time: '01-21', value: 80 },
+  { time: '01-26', value: 100 },
+]
+
+function getEmptyData(periodIndex) {
+  const source = periodIndex === 0 ? EMPTY_HOURLY_DATA : EMPTY_DAILY_DATA
+  return source.map((item) => ({ ...item }))
+}
+
+function getStep(length) {
+  return Math.max(1, Math.ceil(length / 6))
+}
+
+export default Render({
+  async draw(data, isMonth = false, options = {}) {
+    const list = Array.isArray(data) ? data : []
+    const { empty = false, periodIndex = 1 } = options
+    const displayData = empty ? getEmptyData(periodIndex) : list
+    if (!chart) {
+      const canvas = await getCanvasById('energyCanvas')
+      chart = new F2.Chart({ el: canvas, pixelRatio: getSystemInfo().pixelRatio || 2 })
+    }
+
+    chart.clear()
+    chart.source(displayData, {
+      time: {
+        range: [0, 1],
+      },
+      value: empty
+        ? {
+            min: 0,
+            max: 100,
+            tickCount: 5,
+          }
+        : { min: 0, nice: true },
+    })
+
+    const step = getStep(displayData.length)
+    chart.axis('time', {
+      label: (text, index, total) => ({
+        text:
+          (typeof total === 'number' && index === total - 1) || index % step === 0
+            ? text
+            : '',
+      }),
+    })
+
+    if (!empty) {
+      chart.line().position('time*value').color('#015ac5').shape('smooth')
+      chart.tooltip({ showCrosshairs: true })
+      if (list.length) {
+        const maxItem = list.reduce((a, b) => (a.value > b.value ? a : b))
+        chart.guide().text({
+          position: [maxItem.time, maxItem.value],
+          content: `kw.h`,
+          align: 'left',
+          offsetY: -10,
+        })
+      }
+    } else {
+      chart.tooltip(false)
+    }
+
+    chart.render()
+  },
+})

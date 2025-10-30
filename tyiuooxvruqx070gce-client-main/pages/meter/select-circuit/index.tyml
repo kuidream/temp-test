@@ -1,0 +1,30 @@
+<view class="container">
+  <hs-header
+    title="{{i18n.t('select_circuit_no')}}"
+    leftImage="/assets/images/hs/undo.png"
+    bindlefttap="onBack"
+  />
+
+  <view class="section">
+    <view class="section-title">{{i18n.t('circuit_number')}}</view>
+    <!-- 电路选择 -->
+    <view class="card">
+      <view class="grid">
+        <view
+          class="pill {{selected===item ? 'active':''}}"
+          wx:for="{{circuits}}"
+          wx:key="*this"
+          data-circuit="{{item}}"
+          bindtap="selectCircuit"
+        >
+          {{i18n.t('circuit')}}{{item}}
+        </view>
+      </view>
+    </view>
+    <view class="bottom-bar">
+      <view class="btn-confirm {{selected ? 'enabled' : 'disabled'}}" bindtap="onConfirm">
+        {{i18n.t('confirm')}}
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,15 @@
+<view class="container">
+  <hs-header title="{{i18n.t('change_password_title')}}" canGoBack="{{true}}" />
+  <view class="form">
+    <view class="input-item">
+      <input
+        placeholder="{{i18n.t('new_password_placeholder')}}"
+        password
+        bindinput="onInput"
+        value="{{password}}"
+      />
+    </view>
+    <view class="tip"> {{i18n.t('password_rule_tip')}} </view>
+    <button class="finish" bindtap="onSubmit">{{i18n.t('finish')}}</button>
+  </view>
+</view>

@@ -1,0 +1,38 @@
+<view class="store-device">
+  <view class="search-box">
+    <input
+      class="search-input"
+      placeholder="{{i18n.t('search_device_placeholder')}}"
+      value="{{query}}"
+      bindinput="onInput"
+    />
+  </view>
+  <view class="device-list">
+    <view
+      ty:for="{{filtered}}"
+      ty:key="id"
+      class="device-card"
+      data-id="{{item.id}}"
+      data-type="{{item.type}}"
+      data-name="{{item.name}}"
+      data-status="{{item.statusLabel}}"
+      bindtap="goDetail"
+    >
+      <view class="icon"></view>
+      <view class="tag {{item.statusLabel === 'online' ? 'online' : 'line'}}"
+        >{{item.statusLabel}}</view
+      >
+      <view class="row">{{i18n.t('label_id')}}{{item.id}}</view>
+      <view class="row">{{i18n.t('label_name')}}{{item.name}}</view>
+      <view class="row" wx:if="{{item.deviceStatus}}"
+        >{{i18n.t('label_device_status')}}{{item.deviceStatus}}</view
+      >
+      <view class="row" wx:if="{{item.bindTime}}"
+        >{{i18n.t('label_bind_time')}}{{item.bindTime}}</view
+      >
+      <view class="row" wx:if="{{item.policy}}"
+        >{{i18n.t('label_policy_status')}}{{item.policy}}</view
+      >
+    </view>
+  </view>
+</view>

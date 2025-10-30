@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "hs-header": "/components/header/index",
+    "home-install": "/components/home-install/index",
+    "top-tabs": "/components/top-tabs/index"
+  }
+}

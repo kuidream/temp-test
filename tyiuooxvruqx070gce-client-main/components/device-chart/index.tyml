@@ -1,0 +1,45 @@
+<view class="chart-section">
+  <view class="section-header">
+    <view class="title"
+      >{{type === 'lightSensor' ? i18n.t('light_history') : i18n.t('history_data')}}</view
+    >
+    <view class="picker" bindtap="openPeriodPopup">
+      {{i18n.t(`${periodText}`)}}
+      <image class="picker-icon" src="/assets/images/comm/arrow-bottom2.png" />
+    </view>
+  </view>
+  <canvas class="chart-canvas" canvas-id="deviceChart"></canvas>
+  <date-range-calendar
+    show="{{showCalendar}}"
+    bind:cancel="onCalendarCancel"
+    bind:confirm="onCalendarConfirm"
+  />
+  <page-container
+    show="{{showPeriodPopup}}"
+    overlay
+    position="bottom"
+    round
+    bindclickoverlay="closePeriodPopup"
+  >
+    <view class="period-popup">
+      <view class="period-topbar">
+        <image
+          class="close-icon"
+          src="/assets/images/comm/close-sel.png"
+          bindtap="closePeriodPopup"
+        />
+      </view>
+      <view class="period-list">
+        <view
+          ty:for="{{periodList}}"
+          ty:key="index"
+          data-index="{{index}}"
+          class="period-item"
+          bindtap="onPeriodSelect"
+        >
+          <view class="period-item-box {{index === periodIndex ? 'selected' : ''}}">{{i18n.t(`${item}`)}}</view>
+        </view>
+      </view>
+    </view>
+  </page-container>
+</view>

@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "hs-header": "/components/header/index",
+    "mpdialog": "@tuya-miniapp/miniapp-components-plus/dialog/index"
+  }
+}

@@ -1,0 +1,156 @@
+.meter-card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  position: relative;
+  margin-top: 8px;
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 4px;
+}
+
+.rect {
+  width: 4px;
+  height: 6px;
+  background: #015ac5;
+  margin-top: 8px;
+}
+
+.dashed {
+  flex: 1;
+  border-left: 1px dashed #a3acb9;
+  margin-top: 3px;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.row.first {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sn {
+  font-size: 14px;
+  color: #333;
+}
+
+.tags {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.network-tag {
+  font-size: 8px;
+  font-weight: 500;
+  padding: 6px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.network-tag.networked {
+  background: rgba(1, 90, 197, 0.05);
+  color: rgba(4, 191, 218, 1);
+  text-align: center;
+}
+
+.network-tag.bound {
+  background: rgba(1, 90, 197, 0.05);
+  color: rgba(163, 172, 185, 1);
+  text-align: center;
+}
+
+.network-tag.unbound {
+  background: rgba(1, 90, 197, 0.05);
+  color: #585b61;
+  text-align: center;
+}
+
+.status-tag {
+  display: flex;
+  align-items: center;
+  font-size: 10px;
+  font-weight: 500;
+}
+
+.status-tag .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  margin-right: 4px;
+}
+
+.status-tag.online {
+  color: #015ac5;
+}
+
+.status-tag.online .dot {
+  background: #015ac5;
+}
+
+.status-tag.offline {
+  color: #a3acb9;
+}
+
+.status-tag.offline .dot {
+  background: #a3acb9;
+}
+
+.device-name {
+  font-size: 14px;
+  color: rgba(51, 51, 51, 1);
+  font-weight: 500;
+}
+
+.bind-time {
+  font-size: 10px;
+  color: rgba(51, 51, 51, 1);
+}
+.action-user {
+  display: flex;
+  font-size: 10px;
+  color: rgba(51, 51, 51, 1);
+  gap: 2px;
+}
+
+.action-user__label {
+  color: rgba(163, 172, 185, 1);
+}
+
+.action-user__value {
+  color: rgba(51, 51, 51, 1);
+}
+.device-id,
+.circuit {
+  font-size: 10px;
+  color: rgba(88, 91, 97, 1);
+}
+
+.right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+.setting-btn {
+  background: #015ac5;
+  color: #fff;
+  border-radius: 8px;
+  padding: 5px 12px;
+  font-size: 14px;
+}
+
+.select-checkbox {
+  color: #015ac5;
+}

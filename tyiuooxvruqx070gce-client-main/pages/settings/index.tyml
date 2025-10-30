@@ -1,0 +1,67 @@
+<view class="container">
+  <hs-header title="{{i18n.t('settings_title')}}" canGoBack="{{true}}" />
+  <view class="func-list">
+    <view class="func-item" bindtap="goAccountInfo">
+      <view class="label">{{i18n.t('account_info')}}</view>
+      <view class="arrow plus-icon-arrow"></view>
+    </view>
+  </view>
+
+  <view class="func-list">
+    <view class="func-item" bindtap="goPrivacy">
+      <view class="label">{{i18n.t('privacy_permission_settings')}}</view>
+      <view class="arrow plus-icon-arrow"></view>
+    </view>
+    <view class="func-item" bindtap="goLaws">
+      <view class="label">{{i18n.t('laws_and_regulations')}}</view>
+      <view class="arrow plus-icon-arrow"></view>
+    </view>
+    <view class="func-item" bindtap="goPolicy">
+      <view class="label">{{i18n.t('privacy_policy_management')}}</view>
+      <view class="arrow plus-icon-arrow"></view>
+    </view>
+    <view class="func-item" bindtap="goAbout">
+      <view class="label">{{i18n.t('about')}}</view>
+      <view class="arrow plus-icon-arrow"></view>
+    </view>
+  </view>
+
+  <view class="func-list">
+    <view class="func-item" bindtap="goNetworkDiag">
+      <view class="label">{{i18n.t('network_diagnosis')}}</view>
+      <view class="arrow plus-icon-arrow"></view>
+    </view>
+    <view class="func-item" bindtap="onClearCache">
+      <view class="label">{{i18n.t('clear_cache')}}</view>
+      <view class="right-wrap">
+        <view class="cacheValue">{{cacheSize}}</view>
+        <view class="arrow plus-icon-arrow"></view>
+      </view>
+    </view>
+    <view class="func-item" bindtap="goLanguage">
+      <view class="label">{{i18n.t('multilanguage_settings')}}</view>
+      <view class="arrow plus-icon-arrow"></view>
+    </view>
+  </view>
+
+  <button class="logout" bindtap="onLogout">{{i18n.t('logout')}}</button>
+
+  <mpdialog
+    title="{{i18n.t('logout_confirm_title')}}"
+    show="{{showLogoutDialog}}"
+    buttons="{{logoutButtons}}"
+    bindbuttontap="handleLogoutDialog"
+  >
+    <view class="logout-content">
+      <text>{{i18n.t('logout_confirm_content')}}</text>
+      <view class="remember">
+        <checkbox
+          checked="{{keepLoginInfo}}"
+          bindchange="onKeepLoginChange"
+          class="small-checkbox"
+        />
+        <text class="remember-text">{{i18n.t('keep_login_info_tip')}}</text>
+      </view>
+    </view>
+  </mpdialog>
+</view>

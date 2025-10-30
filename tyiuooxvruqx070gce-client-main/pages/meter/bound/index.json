@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "hs-header": "/components/header/index",
+    "meter-card": "/components/meter-card/index"
+  }
+}

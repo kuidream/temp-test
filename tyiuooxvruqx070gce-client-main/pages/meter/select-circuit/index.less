@@ -1,0 +1,72 @@
+.container {
+  min-height: 100vh;
+  background: #f6f7f9;
+}
+
+.section {
+  height: 100%;
+  padding: 15px;
+}
+.section-title {
+  color: #333333;
+  font-size: 16px;
+  margin: 4px 0 8px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.pill {
+  width: 46%;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 7px 0;
+  border-radius: 7px;
+  background: #fff;
+  color: #898a8d;
+  border: 1rpx solid rgba(217, 217, 217, 1);
+  font-size: 14px;
+}
+.pill.active {
+  color: rgba(1, 90, 197, 1);
+  background: rgba(22, 119, 255, 0.06);
+  border-color: rgba(1, 90, 197, 1);
+}
+
+.bottom-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: calc(48px + constant(safe-area-inset-bottom));
+  bottom: calc(48px + env(safe-area-inset-bottom));
+  padding: 10px 12px;
+}
+
+.btn-confirm {
+  height: 44px;
+  border-radius: 8px;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 500;
+}
+.btn-confirm.disabled {
+  background: rgba(204, 204, 204, 1);
+}
+.btn-confirm.enabled {
+  background: rgba(1, 90, 197, 1);
+}

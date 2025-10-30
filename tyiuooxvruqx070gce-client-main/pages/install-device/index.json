@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "hs-header": "/components/header/index",
+    "store-card": "/components/store-card/index",
+    "meter-card": "/components/meter-card/index",
+    "top-tabs": "/components/top-tabs/index"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "store-card": "/components/store-card/index"
+  }
+}

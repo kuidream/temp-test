@@ -1,0 +1,164 @@
+<view class="container">
+  <hs-header
+    hideBack
+    title="{{store.storeName}}"
+    titleIcon="/assets/images/comm/change-store.png"
+    bind:titleicontap="onChangeStore"
+    leftImage="/assets/images/comm/person.png"
+    bindlefttap="toggleRolePopup"
+    rightImage="/assets/images/comm/call.png"
+    bind:righttap="onCall"
+  />
+  <top-tabs current="device" bind:change="onTabChange" />
+
+  <view wx:if="{{showRolePopup}}" class="role-popup">
+    <view
+      class="option {{currentRole==='store'?'active':''}}"
+      data-role="store"
+      bindtap="onSelectRole"
+      >{{i18n.t('role_store')}}</view
+    >
+    <view
+      class="option {{currentRole==='install'?'active':''}}"
+      data-role="install"
+      bindtap="onSelectRole"
+      >{{i18n.t('role_install')}}</view
+    >
+  </view>
+  <view class="content">
+    <store-card
+      storeCode="{{store.storeCode}}"
+      storeName="{{store.storeName}}"
+      address="{{store.address}}"
+      contacts="{{store.contacts}}"
+      showButton="{{false}}"
+    />
+    <!-- 设备选择类型 -->
+    <view class="select-device-type">{{i18n.t('select_device_type')}}</view>
+    <picker
+      class="all-picker"
+      mode="selector"
+      range="{{filters}}"
+      range-key="typeName"
+      value="{{selectedFilter}}"
+      confirm-text="{{i18n.t('confirm')}}"
+      cancel-text="{{i18n.t('cancel')}}"
+      bindchange="onFilterChange"
+    >
+      <view class="all-btn">
+        {{filters[selectedFilter].typeName}}
+        <image src="/assets/images/hs/arrow_down.png" alt="" class="arrow-down" />
+      </view>
+    </picker>
+
+    <!-- 顶部筛选条 -->
+    <view class="filter-bar">
+      <view class="seg">
+        <view
+          class="seg-item {{activeTab==='net'?'active':''}}"
+          data-tab="net"
+          bindtap="onSegmentTab"
+          >{{i18n.t('status_networked')}}</view
+        >
+        <view
+          class="seg-item {{activeTab==='bind'?'active':''}}"
+          data-tab="bind"
+          bindtap="onSegmentTab"
+          >{{i18n.t('status_bound')}}</view
+        >
+        <view
+          class="seg-item {{activeTab==='unbind'?'active':''}}"
+          data-tab="unbind"
+          bindtap="onSegmentTab"
+          >{{i18n.t('status_unbound')}}</view
+        >
+      </view>
+    </view>
+
+    <!-- 设备列表（卡片使用 meter-card 组件） -->
+    <view class="meter-list">
+      <view class="meter-item" ty:for="{{meters}}" ty:for-item="item" ty:key="id">
+        <meter-card
+          ext-class="meter-card-ui"
+          sn="{{item.sn}}"
+          storeDeviceNum="{{item.storeDeviceNum}}"
+          status-text="{{item.bindStatus}}"
+          online="{{item.online ? true : false}}"
+          name="{{item.name}}"
+          date="{{item.bindTime}}"
+          deviceId="{{item.id}}"
+          circuit="{{item.circuit || ''}}"
+          user-label="{{item.userLabel}}"
+          user-name="{{item.userName}}"
+          showSetting="{{activeTab !== 'unbind'}}"
+          buttonType="{{activeTab === 'bind' ? 'unbind' : 'bound'}}"
+          bind:bound="goBound"
+          bind:unbind="goUnbind"
+          bindtap="openDevicePanel"
+          data-device-id="{{item.id}}"
+        />
+      </view>
+    </view>
+  </view>
+  <!-- 解绑确认弹窗 -->
+  <view class="modal-mask" wx:if="{{showConfirm}}">
+    <view class="modal-content">
+      <view class="modal-header">
+        <text class="modal-title">{{i18n.t('prompt')}}</text>
+      </view>
+      <view class="modal-body">
+        <text
+          >{{i18n.t('confirm_unbind_prefix')}}{{unbindTarget.name}}{{i18n.t('confirm_unbind_suffix')}}</text
+        >
+      </view>
+      <view class="modal-footer">
+        <button class="modal-btn cancel" bindtap="closeConfirm">{{i18n.t('cancel')}}</button>
+        <button class="modal-btn confirm" bindtap="confirmUnbind">{{i18n.t('confirm')}}</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 解绑进度弹窗 -->
+  <view class="modal-mask" wx:if="{{showProgress}}">
+    <view class="modal-content progress-box">
+      <view class="modal-header progress-header">
+        <text class="modal-title">{{i18n.t('unbinding')}}</text>
+        <image
+          class="close-img"
+          src="/assets/images/hs/close.png"
+          mode="aspectFit"
+          bindtap="closeProgress"
+        />
+      </view>
+      <view class="modal-body">
+        <view class="progress-wrapper">
+          <text class="percent-text">{{unbindProgress}}%</text>
+          <slider
+            value="{{unbindProgress}}"
+            min="0"
+            max="100"
+            disabled
+            activeColor="rgba(1, 90, 197, 1)"
+            backgroundColor="rgba(217, 217, 217, 1)"
+            block-size="12"
+            block-color="transparent"
+          />
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 解绑结果弹窗 -->
+  <view class="modal-mask" wx:if="{{showResult}}">
+    <view class="modal-content">
+      <view class="modal-header unbind-header">
+        <text class="modal-title {{unbindSuccess ? 'success-text' : 'fail-text'}}">
+          {{unbindSuccess ? i18n.t('unbind_success') : i18n.t('unbind_fail')}}
+        </text>
+      </view>
+      <view class="modal-footer">
+        <button class="modal-btn confirm" bindtap="closeResult">{{i18n.t('confirm')}}</button>
+      </view>
+    </view>
+  </view>
+</view>

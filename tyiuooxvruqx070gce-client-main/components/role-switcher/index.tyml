@@ -1,0 +1,14 @@
+<view class="role-switcher">
+  <image class="role-btn" src="/assets/images/comm/person.png" catchtap="toggle" />
+  <view wx:if="{{show}}" class="bubble">
+    <view class="option {{role === 'store' ? 'active' : ''}}" data-role="store" bindtap="selectRole"
+      >{{i18n.t('role_store')}}</view
+    >
+    <view
+      class="option {{role === 'install' ? 'active' : ''}}"
+      data-role="install"
+      bindtap="selectRole"
+      >{{i18n.t('role_install')}}</view
+    >
+  </view>
+</view>

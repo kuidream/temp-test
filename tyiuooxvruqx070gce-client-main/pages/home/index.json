@@ -1,0 +1,12 @@
+{
+  "usingComponents": {
+    "hs-header": "/components/header/index",
+    "store-card": "/components/store-card/index",
+    "top-tabs": "/components/top-tabs/index",
+    "region-popup": "/components/region-popup/index",
+    "search-store-item": "/components/search-store-item/index",
+    "home-install": "/components/home-install/index",
+    "mploading": "@tuya-miniapp/miniapp-components-plus/loading/index",
+    "meter-card": "/components/meter-card/index"
+  }
+}

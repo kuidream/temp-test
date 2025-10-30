@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "hs-header": "/components/header/index",
+    "device-chart": "/components/device-chart/index",
+    "mploading": "@tuya-miniapp/miniapp-components-plus/loading/index"
+  }
+}

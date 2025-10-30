@@ -1,0 +1,84 @@
+<view class="container">
+  <hs-header
+    title="{{i18n.t('energy_info')}}"
+    leftImage="/assets/images/comm/arrow-left.png"
+    bindlefttap="onBack"
+  />
+  <view class="chart-section">
+    <view class="section-header">
+      <view class="title">{{i18n.t('energy_chart')}}</view>
+      <view class="picker" bindtap="openPeriodPopup">
+        {{i18n.t(`${periodText}`)}}
+        <image class="picker-icon" src="/assets/images/comm/arrow-bottom2.png" />
+      </view>
+    </view>
+    <canvas class="chart-canvas" canvas-id="energyCanvas"></canvas>
+  </view>
+  <view class="card">
+    <view class="card-title">{{i18n.t('accumulated_energy_data')}}</view>
+    <view class="row1"
+      ><view class="row-title">{{i18n.t('today_energy_label')}}</view
+      ><text>{{stat.todayElectricity}}kw.h</text></view
+    >
+    <view class="row"
+      ><view class="row-title">{{i18n.t('week_energy_label')}}</view
+      ><text>{{stat.weekElectricity}}kw.h</text></view
+    >
+    <view class="row"
+      ><view class="row-title">{{i18n.t('month_energy_label')}}</view
+      ><text>{{stat.monthElectricity}}kw.h</text></view
+    >
+    <view class="row"
+      ><view class="row-title">{{i18n.t('year_energy_label')}}</view
+      ><text>{{stat.yearElectricity}}kw.h</text></view
+    >
+  </view>
+  <view class="card" ty:for="{{electricityMeters}}" ty:for-item="item" ty:key="meterName">
+    <view class="card-title">{{item.meterName}}</view>
+    <view
+      class="meter-row {{rowIndex === 0 ? 'meter-row-first' : ''}}"
+      ty:for="{{item.metricRows}}"
+      ty:for-item="row"
+      ty:for-index="rowIndex"
+      ty:key="rowIndex"
+    >
+      <view class="meter-item" ty:for="{{row}}" ty:for-item="metric" ty:key="labelKey">
+        <view class="meter-item-label">{{i18n.t(metric.labelKey)}}</view>
+        <view class="meter-item-value">{{metric.value}}</view>
+      </view>
+    </view>
+  </view>
+  <date-range-calendar
+    show="{{showCalendar}}"
+    bind:cancel="onCalendarCancel"
+    bind:confirm="onCalendarConfirm"
+  />
+  <page-container
+    show="{{showPeriodPopup}}"
+    overlay
+    position="bottom"
+    round
+    bindclickoverlay="closePeriodPopup"
+  >
+    <view class="period-popup">
+      <view class="period-topbar">
+        <image
+          class="close-icon"
+          src="/assets/images/comm/close-sel.png"
+          bindtap="closePeriodPopup"
+        />
+      </view>
+      <view class="periods-list">
+        <view
+          ty:for="{{periodList}}"
+          ty:key="index"
+          data-index="{{index}}"
+          class="period-item"
+          bindtap="onPeriodSelect"
+        >
+          <view class="period-item-box {{index === periodIndex ? 'selected' : ''}}">{{i18n.t(`${item}`)}}</view>
+        </view>
+      </view>
+    </view>
+  </page-container>
+</view>

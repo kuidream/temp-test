@@ -1,0 +1,56 @@
+<view class="container">
+  <hs-header
+    title="{{i18n.t('fault_devices')}}"
+    leftImage="/assets/images/comm/back-device.png"
+    bindlefttap="onBack"
+  />
+  <view class="device-list">
+    <view
+      class="device-card"
+      ty:for="{{devices}}"
+      ty:key="id"
+      ty:for-item="item"
+      ty:for-index="index"
+      data-id="{{item.id}}"
+      bindtap="goDetail"
+    >
+      <view class="icon-box">
+        <image class="icon" src="{{iconMap[item.type] || '/assets/images/comm/elc-device.png'}}" />
+        <view class="tag {{item.statusClass}}">{{i18n.t(item.statusLabel)}}</view>
+      </view>
+      <view class="row1"><view class="row3">ID</view><view class="row2">{{item.id}}</view></view>
+      <view class="row1"
+        ><view class="row3">{{i18n.t('device_model')}}</view
+        ><view class="row2">{{item.model}}</view></view
+      >
+      <image
+        class="toggle-icon"
+        wx:if="{{!item.showDetail}}"
+        src="/assets/images/comm/arrow-bottom2.png"
+        catchtap="toggleDetail"
+        data-index="{{index}}"
+      />
+      <view wx:if="{{item.showDetail}}">
+        <view class="row1" wx:if="{{item.name}}"
+          ><view class="row3">{{i18n.t('device_name')}}</view
+          ><view class="row2">{{item.name}}</view></view
+        >
+        <view class="row1" wx:if="{{item.faultTime}}"
+          ><view class="row3">{{i18n.t('fault_time')}}</view
+          ><view class="row2">{{item.faultTime}}</view></view
+        >
+        <view class="row1" wx:if="{{item.faultType}}"
+          ><view class="row3">{{i18n.t('fault_type')}}</view
+          ><view class="row2">{{item.faultType}}</view></view
+        >
+      </view>
+      <image
+        wx:if="{{item.showDetail}}"
+        class="toggle-icon"
+        src="/assets/images/comm/arrow-top-2.png"
+        catchtap="toggleDetail"
+        data-index="{{index}}"
+      />
+    </view>
+  </view>
+</view>

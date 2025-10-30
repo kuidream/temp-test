@@ -1,0 +1,56 @@
+<view class="container">
+  <hs-header
+    title="{{i18n.t('healthy_devices')}}"
+    leftImage="/assets/images/comm/back-device.png"
+    bindlefttap="onBack"
+  />
+  <view class="device-list">
+    <view
+      class="device-card"
+      ty:for="{{devices}}"
+      ty:key="id"
+      ty:for-item="item"
+      ty:for-index="index"
+      data-id="{{item.id}}"
+      bindtap="goDetail"
+    >
+      <view class="icon-box">
+        <image class="icon" src="{{iconMap[item.type] || '/assets/images/comm/elc-device.png'}}" />
+        <view class="tag {{item.statusClass}}">{{item.statusLabel === 1 ? i18n.t('status_online') : i18n.t('status_offline')}}</view>
+      </view>
+      <view class="row1"><view class="row3">ID</view><view class="row2">{{item.id}}</view></view>
+      <view class="row1"
+        ><view class="row3">{{i18n.t('device_name')}}</view
+        ><view class="row2">{{item.name}}</view></view
+      >
+      <image
+        class="toggle-icon"
+        wx:if="{{!item.showDetail}}"
+        src="/assets/images/comm/arrow-bottom2.png"
+        catchtap="toggleDetail"
+        data-index="{{index}}"
+      />
+      <view wx:if="{{item.showDetail}}">
+        <view class="row1" wx:if="{{item.deviceStatus}}"
+          ><view class="row3">{{i18n.t('device_status')}}</view
+          ><view class="row2">{{item.deviceStatus === 1 ? i18n.t('device_on') : i18n.t('device_off')}}</view></view
+        >
+        <view class="row1" wx:if="{{item.bindTime}}"
+          ><view class="row3">{{i18n.t('bind_time')}}</view
+          ><view class="row2">{{item.bindTime}}</view></view
+        >
+        <view class="row1" wx:if="{{item.policy}}"
+          ><view class="row3">{{i18n.t('policy_status')}}</view
+          ><view class="row2">{{item.policy === 1 ? i18n.t('tasc_on') : i18n.t('tasc_off')}}</view></view
+        >
+      </view>
+      <image
+        wx:if="{{item.showDetail}}"
+        class="toggle-icon"
+        src="/assets/images/comm/arrow-top-2.png"
+        catchtap="toggleDetail"
+        data-index="{{index}}"
+      />
+    </view>
+  </view>
+</view>

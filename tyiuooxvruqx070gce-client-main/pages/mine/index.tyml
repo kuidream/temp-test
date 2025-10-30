@@ -1,0 +1,19 @@
+<view class="container">
+  <!-- 顶部右侧设置图标 -->
+  <view class="header-setting" bindtap="goSettings">
+    <image src="/assets/images/hs/setting.png" class="setting-icon" />
+  </view>
+
+  <view class="func-list-box">
+    <view class="func-list">
+      <view class="func-item" bindtap="openMessageCenter">
+        <view class="label">{{i18n.t('mine_messages')}}</view>
+        <view class="arrow plus-icon-arrow"></view>
+      </view>
+      <view class="func-item" bindtap="openHelpCenter">
+        <view class="label">{{i18n.t('mine_help')}}</view>
+        <view class="arrow plus-icon-arrow"></view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,465 @@
+<block wx:if="{{currentView === 'home'}}">
+  <view class="container home-view">
+    <hs-header
+      title="{{i18n.t('store_list')}}"
+      leftImage="/assets/images/comm/person.png"
+      bindlefttap="toggleRolePopup"
+      rightImage="/assets/images/comm/call.png"
+      bind:righttap="onCall"
+    />
+    <top-tabs current="store" bind:change="onHomeTabChange" />
+
+    <view wx:if="{{showRolePopup}}" class="role-mask" bindtap="closeRolePopup">
+      <view class="role-popup" catchtap="noop">
+        <view class="option {{role==='store'?'active':''}}" data-role="store" bindtap="onSelectRole"
+          >{{i18n.t('role_store_end')}}</view
+        >
+        <view
+          class="option {{role==='install'?'active':''}}"
+          data-role="install"
+          bindtap="onSelectRole"
+          >{{i18n.t('role_install_end')}}</view
+        >
+      </view>
+    </view>
+    <view class="search-box" bindtap="onSearch">
+      <view class="icon-wrapper location-wrapper" catchtap="openLocation">
+        <image class="location-icon" src="/assets/images/comm/local-icon.png" />
+      </view>
+      <input
+        class="search-input"
+        placeholder="{{i18n.t('search_store_placeholder')}}"
+        placeholder-style="color:#A3ACB9;"
+        disabled
+      />
+      <view class="icon-wrapper search-wrapper">
+        <image class="search-icon" src="/assets/images/comm/search-normal.png" />
+      </view>
+    </view>
+
+    <view class="no-store-tip">{{i18n.t('cascade_select_tip')}}</view>
+
+    <region-popup
+      show="{{showPicker}}"
+      bind:close="onRegionClose"
+      bind:storeSelect="onStoreSelect"
+    />
+  </view>
+</block>
+
+<block wx:elif="{{currentView === 'searchResult'}}">
+  <view class="container search-result-view">
+    <hs-header
+      title="{{i18n.t('select_store')}}"
+      hideBack="{{true}}"
+      leftImage="/assets/images/comm/person.png"
+      bindlefttap="toggleRolePopup"
+      rightImage="/assets/images/comm/call.png"
+      bind:righttap="onCall"
+    />
+    <view wx:if="{{showRolePopup}}" class="role-popup">
+      <view class="option {{role==='store'?'active':''}}" data-role="store" bindtap="onSelectRole"
+        >{{i18n.t('role_store_end')}}</view
+      >
+      <view
+        class="option {{role==='install'?'active':''}}"
+        data-role="install"
+        bindtap="onSelectRole"
+        >{{i18n.t('role_install_end')}}</view
+      >
+    </view>
+    <view class="store-list">
+      <block ty:if="{{searchResults.length}}">
+        <search-store-item
+          ty:for="{{searchResults}}"
+          ty:key="storeId"
+          storeId="{{item.storeId}}"
+          storeName="{{item.storeName}}"
+          address="{{item.address}}"
+          contacts="{{item.contacts}}"
+          bind:getInto="onGetInto"
+        />
+      </block>
+      <block ty:else>
+        <view class="empty">{{i18n.t('no_data')}}</view>
+      </block>
+    </view>
+  </view>
+</block>
+
+<block wx:elif="{{currentView === 'storeDetail'}}">
+  <view class="container store-detail-view">
+    <hs-header
+      hideBack
+      title="{{detailStoreName}}"
+      titleIcon="/assets/images/comm/change-store.png"
+      bind:titleicontap="onChangeStore"
+      leftImage="/assets/images/comm/person.png"
+      bindlefttap="toggleRolePopup"
+      rightImage="/assets/images/comm/call.png"
+      bind:righttap="onCall"
+    />
+    <top-tabs current="store" bind:change="onDetailTabChange" />
+
+    <view wx:if="{{showRolePopup}}" class="role-popup">
+      <view class="option {{role==='store'?'active':''}}" data-role="store" bindtap="onSelectRole"
+        >{{i18n.t('role_store')}}</view
+      >
+      <view
+        class="option {{role==='install'?'active':''}}"
+        data-role="install"
+        bindtap="onSelectRole"
+        >{{i18n.t('role_install')}}</view
+      >
+    </view>
+    <view class="content-area">
+      <view wx:if="{{role === 'store'}}">
+        <view class="store-home">
+          <view class="box energy-box">
+            <view class="energy-header" bindtap="goEnergyInfo">
+              <view class="energy-title">
+                <view class="energy-icon-box">
+                  <image class="energy-icon" src="/assets/images/comm/elc-icon.png" />
+                </view>
+                <text class="energy-text">{{i18n.t('energy_data')}}</text>
+              </view>
+              <image class="arrow-icon" src="/assets/images/comm/arrow-right.png" />
+            </view>
+            <view class="energy-item">
+              <text class="item-title">{{i18n.t('realtime_power')}}</text>
+              <text class="item-value">{{realTimePower}}kw</text>
+            </view>
+            <view class="energy-item energy-item-border">
+              <text class="item-title">{{i18n.t('today_energy')}}</text>
+              <text class="item-value">{{todayElectricity}}kw.h</text>
+            </view>
+            <view class="energy-item">
+              <text class="item-title">{{i18n.t('total_energy')}}</text>
+              <text class="item-value">{{totalElectricity}}kw.h</text>
+            </view>
+          </view>
+          <view class="box device-box">
+            <view class="device-header" bindtap="goDeviceStatus">
+              <view class="device-title">
+                <view class="device-icon-box">
+                  <image class="device-icon" src="/assets/images/comm/device-status.png" />
+                </view>
+                <text class="device-text">{{i18n.t('device_status_summary')}}</text>
+              </view>
+            </view>
+            <view class="device-item device-item-border" bindtap="goHealthyDevice">
+              <text class="item-title">{{i18n.t('healthy_devices')}}：{{healthyCount}}</text>
+              <image class="arrow-icon" src="/assets/images/comm/arrow-right.png" />
+            </view>
+            <view class="device-item" bindtap="goFaultDevice">
+              <text class="item-title">{{i18n.t('fault_devices')}}：{{faultCount}}</text>
+              <image class="arrow-icon" src="/assets/images/comm/arrow-right.png" />
+            </view>
+          </view>
+          <view class="box run-box">
+            <view class="run-header">
+              <view class="run-title">
+                <view class="run-icon-box">
+                  <image class="run-icon" src="/assets/images/comm/un-status.png" />
+                </view>
+                <text class="run-text">{{i18n.t('running_status')}}</text>
+              </view>
+            </view>
+            <view class="run-item run-item-border">
+              <text class="item-title">{{i18n.t('online_count')}}</text>
+              <text class="item-value">{{onlineCount}}</text>
+            </view>
+            <view class="run-item">
+              <text class="item-title">{{i18n.t('offline_count')}}</text>
+              <text class="item-value">{{offlineCount}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view wx:else>
+        <home-install bind:change="onDetailTabChange" />
+      </view>
+    </view>
+  </view>
+</block>
+
+<block wx:elif="{{currentView === 'storeDevice'}}">
+  <view class="container store-device-view">
+    <hs-header
+      hideBack
+      title="{{storeDeviceStoreName}}"
+      titleIcon="/assets/images/comm/change-store.png"
+      bind:titleicontap="onChangeStore"
+      leftImage="/assets/images/comm/person.png"
+      bindlefttap="toggleRolePopup"
+      rightImage="/assets/images/comm/call.png"
+      bind:righttap="onCall"
+    />
+    <top-tabs current="device" bind:change="onDeviceTabChange" />
+    <view wx:if="{{showRolePopup}}" class="role-popup">
+      <view class="option {{role==='store'?'active':''}}" data-role="store" bindtap="onSelectRole"
+        >{{i18n.t('role_store')}}</view
+      >
+      <view
+        class="option {{role==='install'?'active':''}}"
+        data-role="install"
+        bindtap="onSelectRole"
+        >{{i18n.t('role_install')}}</view
+      >
+    </view>
+    <view class="filter">
+      <picker
+        mode="selector"
+        range="{{storeDeviceTypeList}}"
+        value="{{storeDeviceTypeIndex}}"
+        confirm-text="{{i18n.t('confirm')}}"
+        cancel-text="{{i18n.t('cancel')}}"
+        bindchange="onDeviceTypeChange"
+      >
+        <view class="filter-picker">
+          <text class="filter-label">{{storeDeviceTypeList[storeDeviceTypeIndex]}}</text>
+          <image class="filter-icon" src="/assets/images/comm/arrow-bottom.png" />
+        </view>
+      </picker>
+    </view>
+    <view class="device-list">
+      <!-- 加载状态 -->
+      <view wx:if="{{storeDeviceLoading}}" class="loading-container">
+        <text class="loading-text">{{i18n.t('loading')}}</text>
+      </view>
+      <!-- 设备列表 -->
+      <view wx:elif="{{storeDeviceDevices.length > 0}}">
+        <view
+          class="device-card"
+          ty:for="{{storeDeviceDevices}}"
+          ty:for-item="item"
+          ty:for-index="index"
+          ty:key="id"
+          data-id="{{item.id}}"
+          data-type="{{item.type}}"
+          data-name="{{item.name}}"
+          data-status="{{item.statusLabel}}"
+          bindtap="goDetail"
+        >
+          <view class="icon-box">
+            <image
+              class="icon"
+              src="{{iconMap[item.type] || '/assets/images/comm/elc-device.png'}}"
+            />
+            <view class="tag {{item.statusClass}}"> {{item.statusLabel}} </view>
+          </view>
+          <view class="row1"
+            ><view class="row3">{{i18n.t('label_id')}}</view
+            ><view class="row2">{{item.id}}</view></view
+          >
+          <view class="row1"
+            ><view class="row3">{{i18n.t('label_name')}}</view
+            ><view class="row2">{{item.name}}</view></view
+          >
+          <image
+            class="toggle-icon"
+            wx:if="{{!item.showDetail && item.haveDetail}}"
+            src="{{'/assets/images/comm/arrow-bottom2.png'}}"
+            catchtap="toggleDetail"
+            data-index="{{index}}"
+          />
+          <view wx:if="{{item.showDetail && item.haveDetail}}">
+            <view class="row1" wx:if="{{item.policy}}"
+              ><view class="row3">{{i18n.t('label_device_status')}}</view
+              ><view class="row2">{{item.deviceStatus}}</view></view
+            >
+            <view class="row1" wx:if="{{item.bindTime}}"
+              ><view class="row3">{{i18n.t('label_bind_time')}}</view
+              ><view class="row2">{{item.bindTime}}</view></view
+            >
+            <view class="row1" wx:if="{{item.deviceStatus}}"
+              ><view class="row3">{{i18n.t('label_policy_status')}}</view
+              ><view class="row2">{{item.policy}}</view></view
+            >
+          </view>
+          <image
+            wx:if="{{item.showDetail && item.haveDetail}}"
+            class="toggle-icon"
+            src="{{'/assets/images/comm/arrow-top-2.png'}}"
+            catchtap="toggleDetail"
+            data-index="{{index}}"
+          />
+        </view>
+      </view>
+      <!-- 无数据提示 -->
+      <view wx:else class="no-data-container">
+        <text class="no-data-text">{{i18n.t('no_data')}}</text>
+      </view>
+    </view>
+  </view>
+</block>
+
+<block wx:elif="{{currentView === 'installDevice'}}">
+  <view class="container install-device-view">
+    <hs-header
+      hideBack
+      title="{{installStore.storeName}}"
+      titleIcon="/assets/images/comm/change-store.png"
+      bind:titleicontap="onChangeStore"
+      leftImage="/assets/images/comm/person.png"
+      bindlefttap="toggleRolePopup"
+      rightImage="/assets/images/comm/call.png"
+      bind:righttap="onCall"
+    />
+    <top-tabs current="device" bind:change="onInstallTabChange" />
+
+    <view wx:if="{{showRolePopup}}" class="role-popup">
+      <view class="option {{role==='store'?'active':''}}" data-role="store" bindtap="onSelectRole"
+        >{{i18n.t('role_store')}}</view
+      >
+      <view
+        class="option {{role==='install'?'active':''}}"
+        data-role="install"
+        bindtap="onSelectRole"
+        >{{i18n.t('role_install')}}</view
+      >
+    </view>
+    <view class="content">
+      <store-card
+        storeCode="{{installStore.storeCode}}"
+        storeName="{{installStore.storeName}}"
+        address="{{installStore.address}}"
+        contacts="{{installStore.contacts}}"
+        showButton="{{false}}"
+      />
+      <view class="select-device-type">{{i18n.t('select_device_type')}}</view>
+      <picker
+        class="all-picker"
+        mode="selector"
+        range="{{installFilters}}"
+        range-key="typeName"
+        value="{{installSelectedFilter}}"
+        confirm-text="{{i18n.t('confirm')}}"
+        cancel-text="{{i18n.t('cancel')}}"
+        bindchange="onFilterChange"
+      >
+        <view class="all-btn">
+          {{installFilters[installSelectedFilter].typeName}}
+          <image src="/assets/images/hs/arrow_down.png" alt="" class="arrow-down" />
+        </view>
+      </picker>
+
+      <view class="filter-bar">
+        <view class="seg">
+          <view
+            class="seg-item {{installActiveTab==='net'?'active':''}}"
+            data-tab="net"
+            bindtap="onSegmentTab"
+            >{{i18n.t('status_networked')}}</view
+          >
+          <view
+            class="seg-item {{installActiveTab==='bind'?'active':''}}"
+            data-tab="bind"
+            bindtap="onSegmentTab"
+            >{{i18n.t('status_bound')}}</view
+          >
+          <view
+            class="seg-item {{installActiveTab==='unbind'?'active':''}}"
+            data-tab="unbind"
+            bindtap="onSegmentTab"
+            >{{i18n.t('status_unbound')}}</view
+          >
+        </view>
+      </view>
+
+      <view class="meter-list">
+        <!-- 加载状态 -->
+        <view wx:if="{{installMetersLoading}}" class="loading-container">
+          <text class="loading-text">{{i18n.t('loading')}}</text>
+        </view>
+        <!-- 设备列表 -->
+        <view wx:elif="{{installMeters.length > 0}}">
+          <view class="meter-item" ty:for="{{installMeters}}" ty:for-item="item" ty:key="id">
+            <meter-card
+              ext-class="meter-card-ui"
+              sn="{{item.sn}}"
+              storeDeviceNum="{{item.storeDeviceNum}}"
+              status-text="{{item.bindStatus}}"
+              online="{{item.online ? true : false}}"
+              name="{{item.name}}"
+              date="{{item.bindTime}}"
+              user-label="{{item.userLabel}}"
+              user-name="{{item.userName}}"
+              deviceId="{{item.id}}"
+              circuit="{{item.circuit || ''}}"
+              showSetting="{{installActiveTab !== 'unbind'}}"
+              buttonType="{{installActiveTab === 'bind' ? 'unbind' : 'bound'}}"
+              bind:bound="goBound"
+              bind:unbind="goUnbind"
+              bindtap="openDevicePanel"
+              data-device-id="{{item.id}}"
+            />
+          </view>
+        </view>
+        <!-- 无数据提示 -->
+        <view wx:else class="no-data-container">
+          <text class="no-data-text">{{i18n.t('no_data')}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="modal-mask" wx:if="{{installShowConfirm}}">
+      <view class="modal-content">
+        <view class="modal-header">
+          <text class="modal-title">{{i18n.t('prompt')}}</text>
+        </view>
+        <view class="modal-body">
+          <text
+            >{{i18n.t('confirm_unbind_prefix')}}{{installUnbindTarget.name}}{{i18n.t('confirm_unbind_suffix')}}</text
+          >
+        </view>
+        <view class="modal-footer">
+          <button class="modal-btn cancel" bindtap="closeConfirm">{{i18n.t('cancel')}}</button>
+          <button class="modal-btn confirm" bindtap="confirmUnbind">{{i18n.t('confirm')}}</button>
+        </view>
+      </view>
+    </view>
+
+    <view class="modal-mask" wx:if="{{installShowProgress}}">
+      <view class="modal-content progress-box">
+        <view class="modal-header progress-header">
+          <text class="modal-title">{{i18n.t('unbinding')}}</text>
+          <image
+            class="close-img"
+            src="/assets/images/hs/close.png"
+            mode="aspectFit"
+            bindtap="closeProgress"
+          />
+        </view>
+        <view class="modal-body">
+          <view class="progress-wrapper">
+            <text class="percent-text">{{installUnbindProgress}}%</text>
+            <slider
+              value="{{installUnbindProgress}}"
+              min="0"
+              max="100"
+              disabled
+              activeColor="rgba(1, 90, 197, 1)"
+              backgroundColor="rgba(217, 217, 217, 1)"
+              block-size="12"
+              block-color="transparent"
+            />
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="modal-mask" wx:if="{{installShowResult}}">
+      <view class="modal-content">
+        <view class="modal-header unbind-header">
+          <text class="modal-title {{installUnbindSuccess ? 'success-text' : 'fail-text'}}">
+            {{installUnbindSuccess ? i18n.t('unbind_success') : i18n.t('unbind_fail')}}
+          </text>
+        </view>
+        <view class="modal-footer">
+          <button class="modal-btn confirm" bindtap="closeResult">{{i18n.t('confirm')}}</button>
+        </view>
+      </view>
+    </view>
+  </view>
+</block>

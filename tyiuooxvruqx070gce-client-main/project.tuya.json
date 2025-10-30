@@ -1,0 +1,16 @@
+{
+  "projectname": "HS-HanstarLink-Client",
+  "i18n": true,
+  "description": "HanstarLink门店系统",
+  "baseversion": "2.10.29",
+  "dependencies": {
+    "BaseKit": "3.10.4",
+    "MiniKit": "3.9.8",
+    "BizKit": "4.4.4",
+    "MapKit": "3.4.16",
+    "IndustryKit": "2.0.5"
+  },
+  "compileType": "miniprogram",
+  "remoteVersion": "2.0",
+  "remoteDebug": "lan"
+}

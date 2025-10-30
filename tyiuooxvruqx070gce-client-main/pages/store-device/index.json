@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "hs-header": "/components/header/index",
+    "top-tabs": "/components/top-tabs/index",
+    "mploading": "@tuya-miniapp/miniapp-components-plus/loading/index"
+  }
+}

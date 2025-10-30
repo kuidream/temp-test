@@ -1,0 +1,71 @@
+<view class="container">
+  <hs-header
+    title="{{i18n.t('bound_devices_title')}}"
+    leftImage="/assets/images/hs/undo.png"
+    bind:lefttap="onBack"
+    rightText="{{editMode ? i18n.t('unbind') : i18n.t('manage')}}"
+    bind:righttap="toggleManage"
+  />
+
+  <view class="content">
+    <!-- 计量设备卡片 -->
+    <view class="meter-card card">
+      <view class="meter-header">
+        <image src="/assets/images/hs/meter.png" class="icon-signal" />
+        <view class="meter-name">{{i18n.t('meter_device')}}</view>
+        <view class="btn-primary" bindtap="goSelect">{{i18n.t('add_device')}}</view>
+      </view>
+      <view class="meter-desc">{{energyName}}</view>
+      <view class="meter-desc">{{i18n.t('circuit_1_16')}}</view>
+    </view>
+
+    <view class="meter-list-title">{{i18n.t('bound_meter_list')}}</view>
+    <!-- 设备列表 -->
+    <view class="meter-list">
+      <!-- 加载状态 -->
+      <view wx:if="{{loading}}" class="loading-container">
+        <text class="loading-text">{{i18n.t('loading')}}</text>
+      </view>
+      <!-- 设备列表内容 -->
+      <view wx:elif="{{meters.length > 0}}">
+        <meter-card
+          ty:for="{{meters}}"
+          ty:key="id"
+          sn="{{item.sn}}"
+          storeDeviceNum="{{item.storeDeviceNum}}"
+          status-text="{{item.bindStatus}}"
+          online="{{item.online}}"
+          name="{{item.name}}"
+          date="{{item.bindTime}}"
+          device-id="{{item.id}}"
+          circuit="{{item.circuit}}"
+          showCheckbox="{{editMode}}"
+          checked="{{item.checked}}"
+          bind:select="onSelect"
+        />
+      </view>
+      <!-- 无数据提示 -->
+      <view wx:else class="no-data-container">
+        <text class="no-data-text">{{i18n.t('no_data')}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 解绑确认弹窗 -->
+  <view class="modal-mask" wx:if="{{showModal}}">
+    <view class="modal-content">
+      <view class="modal-header">
+        <text class="modal-title">{{i18n.t('unbind_modal_title')}}</text>
+      </view>
+      <view class="modal-body">
+        <text
+          >{{i18n.t('unbind_confirm_message_prefix')}}{{selectedCount}}{{i18n.t('unbind_confirm_message_suffix')}}</text
+        >
+      </view>
+      <view class="modal-footer">
+        <button class="modal-btn cancel" bindtap="closeModal">{{i18n.t('cancel')}}</button>
+        <button class="modal-btn confirm" bindtap="confirmUnbind">{{i18n.t('confirm')}}</button>
+      </view>
+    </view>
+  </view>
+</view>

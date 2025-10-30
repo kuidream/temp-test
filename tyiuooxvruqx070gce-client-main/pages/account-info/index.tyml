@@ -1,0 +1,17 @@
+<view class="container">
+  <hs-header title="{{i18n.t('account_title')}}" />
+  <view class="info-list">
+    <view class="info-item">
+      <view class="label">{{i18n.t('account_number')}}</view>
+      <view class="value">{{account}}</view>
+    </view>
+    <view class="info-item">
+      <view class="label">{{i18n.t('password')}}</view>
+      <view class="value">*******</view>
+    </view>
+    <view class="info-item" bindtap="goChangePwd">
+      <view class="label">{{i18n.t('change_password_label')}}</view>
+      <view class="arrow plus-icon-arrow"></view>
+    </view>
+  </view>
+</view>

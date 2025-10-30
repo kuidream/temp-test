@@ -1,0 +1,16 @@
+<view class="container">
+  <hs-header title="{{i18n.t('language')}}">
+    <view class="finish" bindtap="finish">{{i18n.t('done')}}</view>
+  </hs-header>
+  <scroll-view scroll-y="true" class="list">
+    <block wx:for="{{languages}}" wx:key="index">
+      <view class="language-item" data-index="{{index}}" bindtap="onSelectLanguage">
+        <view class="label">{{item}}</view>
+        <view
+          wx:if="{{selected === index}}"
+          class="check-icon plus-icon-success-no-circle-thin"
+        ></view>
+      </view>
+    </block>
+  </scroll-view>
+</view>

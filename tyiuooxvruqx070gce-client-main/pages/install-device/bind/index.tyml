@@ -1,0 +1,163 @@
+<view class="bind-container">
+  <hs-header
+    title="{{i18n.t('info_config')}}"
+    leftImage="/assets/images/hs/back_arrow.png"
+    bind:lefttap="handleLeftTap"
+  />
+
+  <view class="content">
+    <!-- 卡片：设备编号 -->
+    <view class="card">
+      <view class="title-wrap">
+        <text class="label">{{i18n.t('device_id')}}</text>
+        <text class="device-no">{{deviceId}}</text>
+      </view>
+    </view>
+
+    <!-- 卡片：设备类型（含展开/收起） -->
+    <view class="device-item-wrap">
+      <text class="item-title">{{i18n.t('device_type')}}</text>
+      <view class="card">
+        <view class="type-list">
+          <view
+            class="type-item {{selectedType === item ? 'active' : ''}} {{disabledTypeMap[item] ? 'disabled' : ''}}"
+            ty:for="{{visibleTypes}}"
+            ty:key="item"
+            data-type="{{item}}"
+            bindtap="selectType"
+            >{{item}}</view
+          >
+        </view>
+        <!-- 展开/收起箭头，置于卡片底部中间 -->
+        <view class="toggle-row" bindtap="toggleTypes">
+          <image
+            class="toggle-icon"
+            src="{{expanded ? '/assets/images/hs/arrow_up.png' : '/assets/images/hs/arrow_down.png'}}"
+            mode="widthFix"
+          />
+        </view>
+      </view>
+    </view>
+
+    <!-- 设备子类型（仅在选中类型后出现） -->
+    <view class="device-item-wrap" wx:if="{{subTypes.length}}">
+      <text class="item-title">{{i18n.t('device_subtype')}}</text>
+      <view class="card">
+        <view class="type-list">
+          <view
+            class="type-item {{selectedSubType === item ? 'active' : ''}}"
+            ty:for="{{subTypes}}"
+            ty:key="item"
+            data-sub="{{item}}"
+            bindtap="selectSubType"
+            >{{item}}</view
+          >
+        </view>
+      </view>
+    </view>
+
+    <!-- 品牌 -->
+    <view class="device-item-wrap" wx:if="{{brands.length || showBrandInput}}">
+      <text class="item-title">{{i18n.t('product_brand')}}</text>
+      <view class="card">
+        <view class="type-list" wx:if="{{brands.length}}">
+          <view
+            class="type-item {{selectedBrand === item ? 'active' : ''}}"
+            ty:for="{{brands}}"
+            ty:key="item"
+            data-brand="{{item}}"
+            bindtap="selectBrand"
+            >{{item}}</view
+          >
+        </view>
+        <input
+          wx:if="{{showBrandInput}}"
+          class="brand-input"
+          placeholder="{{i18n.t('enter_brand_placeholder')}}"
+          value="{{brandInput}}"
+          bindinput="handleBrandInput"
+        />
+      </view>
+    </view>
+
+    <!-- 型号 -->
+    <view class="device-item-wrap" wx:if="{{models.length || showModelInput}}">
+      <text class="item-title">{{i18n.t('product_model')}}</text>
+      <view class="card">
+        <view class="type-list" wx:if="{{models.length}}">
+          <view
+            class="type-item {{selectedModel === item ? 'active' : ''}}"
+            ty:for="{{models}}"
+            ty:key="item"
+            data-model="{{item}}"
+            bindtap="selectModel"
+            >{{item}}</view
+          >
+        </view>
+        <input
+          wx:if="{{showModelInput}}"
+          class="brand-input"
+          placeholder="{{i18n.t('enter_model_placeholder')}}"
+          value="{{modelInput}}"
+          bindinput="handleModelInput"
+        />
+      </view>
+    </view>
+
+    <!-- 区域 -->
+    <view class="device-item-wrap" wx:if="{{areas.length}}">
+      <text class="item-title">{{i18n.t('area')}}</text>
+      <view class="card">
+        <view class="type-list">
+          <view
+            class="type-item {{selectedAreaId === item.id ? 'active' : ''}}"
+            ty:for="{{areas}}"
+            ty:key="id"
+            data-area-id="{{item.id}}"
+            data-area-name="{{item.regionName}}"
+            bindtap="selectArea"
+            >{{item.regionName}}</view
+          >
+        </view>
+      </view>
+
+      <!-- 底部确定按钮 -->
+      <view class="footer">
+        <button class="confirm-btn" disabled="{{!canConfirm}}" bindtap="confirm">
+          {{i18n.t('confirm')}}
+        </button>
+      </view>
+    </view>
+  </view>
+
+  <view class="modal-mask" wx:if="{{showModal}}">
+    <view class="modal-content">
+      <!-- header 只在 loading 或 success 时显示 -->
+      <view
+        class="modal-header {{modalType === 'loading' ? 'no-line' : ''}}"
+        wx:if="{{modalType !== 'fail'}}"
+      >
+        <text class="modal-title {{modalType === 'success' ? 'success-title' : ''}}">
+          {{ modalType === 'loading' ? i18n.t('binding') : i18n.t('bind_success_message') }}
+        </text>
+        <image
+          class="modal-close"
+          wx:if="{{modalType === 'loading'}}"
+          src="/assets/images/hs/close.png"
+          bindtap="closeModal"
+          mode="aspectFit"
+        />
+      </view>
+      <view class="modal-body">
+        <view class="loading-circle" wx:if="{{modalType === 'loading'}}"></view>
+        <text class="fail-text" wx:if="{{modalType === 'fail'}}">{{failMsg}}</text>
+        <text class="success-name" wx:if="{{modalType === 'success'}}"
+          >{{i18n.t('name_label')}}{{autoName}}</text
+        >
+      </view>
+      <view class="modal-footer" wx:if="{{modalType !== 'loading'}}">
+        <button class="modal-btn" bindtap="modalConfirm">{{i18n.t('confirm')}}</button>
+      </view>
+    </view>
+  </view>
+</view>

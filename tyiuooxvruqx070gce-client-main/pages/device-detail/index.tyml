@@ -1,0 +1,153 @@
+<view class="container">
+  <hs-header
+    title="{{i18n.t('device_detail')}}"
+    leftImage="/assets/images/comm/arrow-left.png"
+    bindlefttap="onBack"
+  />
+  <view class="card device-info">
+    <view class="name">{{name}}</view>
+    <!-- 空调 -->
+    <block wx:if="{{type === '24'}}">
+      <view class="row1">
+        <view class="row-title">{{`${i18n.t('device_operation_mode')}:`}}</view>
+        <view class="value">{{temperature.mode}}</view>
+      </view>
+      <view class="row">
+        <view class="row-title">{{`${i18n.t('device_set_temp')}:`}}</view>
+        <view class="value">{{temperature.temperatureSet}}℃</view>
+      </view>
+      <view class="row">
+        <view class="row-title">{{`${i18n.t('device_current_indoor_temp')}:`}}</view>
+        <view class="value">{{temperature.tempCurrent}}℃</view>
+      </view>
+      <view class="row">
+        <view class="row-title">{{`${i18n.t('device_speed')}:`}}</view>
+        <view class="value">{{temperature.windspeed}}</view>
+      </view>
+      <view class="row">
+        <view class="row-title">{{`${i18n.t('device_work_time')}:`}}</view>
+        <view class="value status {{statusClass}}">{{i18n.t('device_on')}}</view>
+      </view>
+    </block>
+    <!-- 冷设 -->
+    <block wx:elif="{{type === '25'}}">
+      <view class="row1">
+        <view class="row-title">{{`${i18n.t('device_set_temp')}:`}}</view>
+        <view class="value">{{temperature.temperatureSet}}℃</view>
+      </view>
+      <view class="row">
+        <view class="row-title">{{`${i18n.t('device_temp_inside')}:`}}</view>
+        <view class="value">{{temperature.tempCurrent}}℃</view>
+      </view>
+      <view class="row">
+        <view class="row-title">{{`${i18n.t('device_work_time')}:`}}</view>
+        <view class="value status {{statusClass}}">{{i18n.t('device_on')}}</view>
+      </view>
+    </block>
+    <!-- 照明设备/招牌灯 -->
+    <block wx:elif="{{type === '23' || type === '34'}}">
+      <view class="row1">
+        <view class="row-title">{{`${i18n.t('device_type_light_equipment')}:`}}</view>
+        <view class="value"
+          >{{type === '23' ? i18n.t('filter_sign_light') :i18n.t('filter_lighting')}}</view
+        >
+      </view>
+      <view class="row">
+        <view class="row-title">{{`${i18n.t('device_switch')}:`}}</view>
+        <view class="value"
+          >{{ light.switchStatus === 1 ? i18n.t('status_on') : light.switchStatus === 0 ?
+          i18n.t('status_off') : i18n.t('status_none') }}</view
+        >
+      </view>
+      <view class="row">
+        <view class="row-title">{{`${i18n.t('device_bright_adjustment')}:`}}</view>
+        <view class="value">{{light.bright}}%</view>
+      </view>
+      <view class="row">
+        <view class="row-title">{{`${i18n.t('device_work_time')}:`}}</view>
+        <view class="value status {{statusClass}}">{{i18n.t('device_on')}}</view>
+      </view>
+    </block>
+    <!-- 电表设备 -->
+    <block wx:elif="{{type === '26'}}">
+      <view class="row">
+        <view class="row-title">{{`${i18n.t('device_current_v')}:`}}</view>
+        <view class="value">{{meter.voltageA}}/{{meter.voltageB}}/{{meter.voltageC}}V</view>
+      </view>
+      <view class="row">
+        <view class="row-title">{{`${i18n.t('device_current_a')}:`}}</view>
+        <view class="value">{{meter.currentA}}/{{meter.currentB}}/{{meter.currentC}}A</view>
+      </view>
+      <view class="row">
+        <view class="row-title">{{`${i18n.t('device_work_time')}:`}}</view>
+        <view class="value status {{statusClass}}">{{i18n.t('device_on')}}</view>
+      </view>
+    </block>
+    <!-- 人体存在传感器 -->
+    <block wx:elif="{{type === '29'}}">
+      <view class="row1">
+        <view class="row-title">{{`${i18n.t('device_state_human')}:`}}</view>
+        <view class="value"
+          >{{ bodyExist === 1 ? i18n.t('status_person_present') : bodyExist === 0 ?
+          i18n.t('status_person_absent') : i18n.t('status_none') }}</view
+        >
+      </view>
+      <view class="row">
+        <view class="row-title">{{`${i18n.t('device_work_time')}:`}}</view>
+        <view class="value status {{statusClass}}">{{i18n.t('device_on')}}</view>
+      </view>
+    </block>
+    <!-- 光照传感器 -->
+    <block wx:elif="{{type === '27'}}">
+      <view class="row1">
+        <view class="row-title">{{`${i18n.t('device_work_time')}:`}}</view>
+        <view class="value status {{statusClass}}">{{i18n.t('device_on')}}</view>
+      </view>
+    </block>
+    <!-- 温湿度传感器 -->
+    <block wx:elif="{{type === '28'}}">
+      <view class="row">
+        <view class="row-title">{{`${i18n.t('device_work_time')}:`}}</view>
+        <view class="value status {{statusClass}}">{{i18n.t('device_on')}}</view>
+      </view>
+      <view class="row">
+        <view class="row-title">{{`${i18n.t('device_now_temp')}:`}}</view>
+        <view class="value">{{temperature.tempCurrent}}℃</view>
+      </view>
+      <view class="row">
+        <view class="row-title">{{`${i18n.t('device_now_hum')}:`}}</view>
+        <view class="value">{{temperature.humidity}}%RH</view>
+      </view>
+    </block>
+    <!-- 热餐设备 -->
+    <block wx:elif="{{type === '31'}}">
+      <view class="row1">
+        <view class="row-title">{{`${i18n.t('device_switch')}:`}}</view>
+        <view class="value"
+          >{{light.switchStatus ? i18n.t('status_on') : i18n.t('status_off')}}</view
+        >
+      </view>
+      <view class="row">
+        <view class="row-title">{{`${i18n.t('device_work_time')}:`}}</view>
+        <view class="value status">{{i18n.t('device_on')}}</view>
+      </view>
+    </block>
+    <!-- 默认信息 -->
+    <block wx:else>
+      <view class="row1">
+        <view class="row-title">{{`${i18n.t('device_work_time')}:`}}</view>
+        <view class="value status {{statusClass}}">{{i18n.t('device_on')}}</view>
+      </view>
+    </block>
+  </view>
+  <device-chart
+    wx:if="{{type === '27' || type === '28'}}"
+    type="{{type}}"
+    data="{{chartData}}"
+    bind:periodchange="onPeriodChange"
+  />
+  <view class="card local-control" bindtap="onOpenPanel">
+    <view class="row-title">{{i18n.t('device_local_con')}}</view>
+    <image class="icon" src="/assets/images/comm/arrow-right2.png" />
+  </view>
+</view>

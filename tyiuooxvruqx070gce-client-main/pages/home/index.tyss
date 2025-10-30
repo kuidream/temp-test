@@ -1,0 +1,640 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: #f4f5f6;
+}
+
+.home-view .search-box {
+  display: flex;
+  align-items: center;
+  width: 343px;
+  height: 48px;
+  margin: 68px auto 24px;
+  margin-top: calc(68px + constant(safe-area-inset-top));
+  margin-top: calc(68px + env(safe-area-inset-top));
+  background: #e8edf4;
+  border-radius: 16px;
+}
+
+.role-mask {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1001;
+}
+
+.role-popup {
+  position: fixed;
+  top: 112px;
+  top: calc(112px + constant(safe-area-inset-top));
+  top: calc(112px + env(safe-area-inset-top));
+  left: 16px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1002;
+}
+
+.role-popup .option {
+  padding: 6px 12px;
+  white-space: nowrap;
+}
+
+.role-popup .option.active {
+  color: #015ac5;
+}
+
+.home-view .icon-wrapper {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.home-view .location-wrapper {
+  height: 18px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-right: 1px solid #a3acb9;
+}
+
+.home-view .location-icon {
+  width: 14px;
+  height: 18px;
+}
+
+.home-view .search-input {
+  flex: 1;
+  height: 100%;
+  line-height: 48px;
+  border: none;
+  background: transparent;
+  color: #a3acb9;
+  font-size: 14px;
+  padding-left: 15px;
+}
+
+.home-view .search-wrapper {
+  padding-left: 15px;
+  height: 18px;
+  padding-right: 15px;
+  border-left: 1px solid #a3acb9;
+}
+
+.home-view .search-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.home-view .no-store-tip {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: #848484;
+}
+
+.search-result-view {
+  gap: 20px;
+}
+
+.search-result-view .role-popup {
+  top: 68px;
+  top: calc(68px + constant(safe-area-inset-top));
+  top: calc(68px + env(safe-area-inset-top));
+}
+
+.search-result-view .store-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 20px;
+}
+
+.search-result-view .empty {
+  text-align: center;
+  color: #999;
+  padding: 20px 0;
+}
+
+.store-detail-view {
+  background: #f5f5f5;
+}
+
+.store-detail-view .content-area {
+  margin-top: 44px;
+}
+
+.store-detail-view .store-home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.store-detail-view .box {
+  width: 343px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.store-detail-view .energy-box {
+  height: 228px;
+  margin-top: 24px;
+  box-sizing: border-box;
+}
+
+.store-detail-view .energy-header,
+.store-detail-view .device-header,
+.store-detail-view .run-header {
+  width: 318px;
+  height: 36px;
+  box-sizing: content-box;
+  padding-bottom: 12px;
+  border-bottom: 1px dashed #d9d9d9;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.store-detail-view .energy-title,
+.store-detail-view .device-title,
+.store-detail-view .run-title {
+  display: flex;
+  align-items: center;
+}
+
+.store-detail-view .energy-icon-box,
+.store-detail-view .device-icon-box,
+.store-detail-view .run-icon-box {
+  width: 36px;
+  height: 36px;
+  border-radius: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.store-detail-view .energy-icon-box {
+  background: #2ebac1;
+}
+
+.store-detail-view .device-icon-box {
+  background: #3b64fb;
+}
+
+.store-detail-view .run-icon-box {
+  background: #33ad6a;
+}
+
+.store-detail-view .energy-icon,
+.store-detail-view .device-icon,
+.store-detail-view .run-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.store-detail-view .energy-text,
+.store-detail-view .device-text,
+.store-detail-view .run-text {
+  margin-left: 10px;
+  font-size: 16px;
+  color: #333333;
+}
+
+.store-detail-view .arrow-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.store-detail-view .energy-item,
+.store-detail-view .device-item,
+.store-detail-view .run-item {
+  width: 311px;
+  height: 64px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.store-detail-view .device-item {
+  width: 318px;
+  height: 40px;
+  box-sizing: content-box;
+}
+
+.store-detail-view .energy-item-border,
+.store-detail-view .device-item-border,
+.store-detail-view .run-item-border {
+  border-top: 1px dashed #d9d9d9;
+  border-bottom: 1px dashed #d9d9d9;
+}
+
+.store-detail-view .device-item-border {
+  padding: 12px 0;
+}
+
+.store-detail-view .energy-item-border {
+  height: 64px;
+}
+
+.store-detail-view .device-box,
+.store-detail-view .run-box {
+  height: 188px;
+  box-sizing: border-box;
+}
+
+.store-device-view {
+  background: #f5f5f5;
+}
+
+.store-device-view .filter {
+  padding: 16px;
+  margin-top: 44px;
+}
+
+.store-device-view .filter-picker {
+  max-width: 343px;
+  margin: 0 auto;
+  height: 48px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.store-device-view .filter-label {
+  color: #333;
+  font-size: 16px;
+}
+
+.store-device-view .filter-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.store-device-view .device-list {
+  padding: 0 16px 16px;
+}
+
+.store-device-view .device-card {
+  position: relative;
+  background: #fff;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  margin: 0 auto 16px auto;
+  max-width: 343px;
+}
+
+.store-device-view .icon {
+  width: 24px;
+  height: 24px;
+  margin-bottom: 12px;
+}
+
+.store-device-view .tag {
+  position: absolute;
+  right: 16px;
+  width: 56px;
+  text-align: center;
+  line-height: 24px;
+  top: 12px;
+  color: #fff;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.store-device-view .line {
+  background: red;
+}
+
+.store-device-view .online {
+  background: green;
+}
+
+.store-device-view .row1 {
+  min-width: 188px;
+  min-height: 22px;
+  line-height: 22px;
+  margin-bottom: 12px;
+  font-size: 16px;
+  margin-left: 12px;
+  color: #999999;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.store-device-view .row2 {
+  display: flex;
+  max-width: 210px;
+  font-size: 14px;
+  color: #333;
+}
+
+.store-device-view .row3 {
+  display: flex;
+  min-width: 33px;
+  height: 22px;
+  color: rgba(153, 153, 153, 1);
+}
+
+.store-device-view .toggle-icon {
+  width: 18px;
+  height: 18px;
+  display: block;
+  margin: 12px auto;
+}
+
+.store-device-view .icon-box {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px dashed #d9d9d9;
+  margin-bottom: 12px;
+}
+
+.store-device-view .loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 80rpx 0;
+}
+
+.store-device-view .loading-text {
+  font-size: 16px;
+  color: rgba(153, 153, 153, 0.8);
+}
+
+.store-device-view .no-data-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 80rpx 0;
+}
+
+.store-device-view .no-data-text {
+  font-size: 16px;
+  color: rgba(153, 153, 153, 0.8);
+}
+
+.install-device-view {
+  background: #f6f7fb;
+  box-sizing: border-box;
+}
+
+.install-device-view .role-popup {
+  top: 68px;
+  top: calc(68px + constant(safe-area-inset-top));
+  top: calc(68px + env(safe-area-inset-top));
+}
+
+.install-device-view .content {
+  padding: 24px 16px;
+  margin-bottom: 78px;
+  margin-top: 40px;
+}
+
+.install-device-view .select-device-type {
+  font-size: 16px;
+  font-weight: 400;
+  color: rgba(51, 51, 51, 0.86);
+}
+
+.install-device-view .filter-bar {
+  width: 100%;
+  margin-top: 24rpx;
+  margin-bottom: 16rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.install-device-view .seg {
+  width: 100%;
+  display: flex;
+  gap: 16rpx;
+  background: transparent;
+  padding: 0;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.install-device-view .seg-item {
+  padding: 10px 0;
+  font-size: 16px;
+  color: rgba(153, 153, 153, 0.58);
+  line-height: 1;
+  border-bottom: 2rpx solid transparent;
+  user-select: none;
+}
+
+.install-device-view .seg-item.active {
+  color: rgba(51, 51, 51, 1);
+  border-bottom-color: rgba(51, 51, 51, 1);
+}
+
+.install-device-view .all-picker {
+  min-width: 160rpx;
+}
+
+.install-device-view .all-btn {
+  padding: 10px 16px;
+  font-size: 16px;
+  background: #fff;
+  border: 1rpx solid #e6e8eb;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 4px;
+  color: rgba(51, 51, 51, 1);
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.04);
+  margin: 8px 0;
+}
+
+.install-device-view .arrow-down {
+  width: 18px;
+  height: 18px;
+}
+
+.install-device-view .meter-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+  padding-bottom: 24rpx;
+}
+
+.install-device-view .meter-item {
+  position: relative;
+}
+
+.install-device-view .meter-card-ui {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  padding-right: 90px;
+  overflow: hidden;
+}
+
+.install-device-view .modal-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.install-device-view .modal-content {
+  width: 560rpx;
+  background: #fff;
+  border-radius: 12px;
+  padding: 32rpx;
+  box-sizing: border-box;
+}
+
+.install-device-view .modal-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24rpx 32rpx;
+  margin: -32rpx -32rpx 24rpx;
+  border-bottom: 1rpx solid #e6e8eb;
+}
+
+.install-device-view .modal-title {
+  font-size: 16px;
+  color: rgba(0, 0, 0, 1);
+}
+
+.install-device-view .modal-body {
+  text-align: center;
+  font-size: 16px;
+  color: rgba(51, 51, 51, 1);
+  padding-bottom: 24rpx;
+}
+
+.install-device-view .modal-footer {
+  display: flex;
+  justify-content: center;
+  gap: 32rpx;
+}
+
+.install-device-view .modal-btn {
+  border-radius: 12rpx;
+  padding: 16rpx 48rpx;
+  font-size: 14px;
+}
+
+.install-device-view .modal-btn.confirm {
+  background: #015ac5;
+  color: #fff;
+  border: none;
+}
+
+.install-device-view .modal-btn.cancel {
+  background: transparent;
+  color: rgba(88, 91, 97, 1);
+  border: 1rpx solid rgba(217, 217, 217, 1);
+}
+
+.install-device-view .progress-header {
+  justify-content: space-between;
+  border: none;
+}
+
+.install-device-view .unbind-header {
+  border: none;
+}
+
+.install-device-view .close-img {
+  width: 32rpx;
+  height: 32rpx;
+}
+
+.install-device-view .progress-wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: end;
+}
+
+.install-device-view .progress-wrapper slider {
+  flex: 1;
+}
+
+.install-device-view .percent-text {
+  color: #015ac5;
+  font-size: 16px;
+  text-align: end;
+}
+
+.install-device-view .fail-text {
+  color: rgba(235, 51, 58, 1);
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.install-device-view .success-text {
+  color: #00b42a;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.test-login-button {
+  position: fixed;
+  top: 112px;
+  top: calc(112px + constant(safe-area-inset-top));
+  top: calc(112px + env(safe-area-inset-top));
+  right: 20px;
+  width: 100%;
+  height: 20px;
+  background: transparent;
+  z-index: 999;
+  border-radius: 5px;
+}
+
+.install-device-view .loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 80rpx 0;
+}
+
+.install-device-view .loading-text {
+  font-size: 16px;
+  color: rgba(153, 153, 153, 0.8);
+}
+
+.install-device-view .no-data-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 80rpx 0;
+}
+
+.install-device-view .no-data-text {
+  font-size: 16px;
+  color: rgba(153, 153, 153, 0.8);
+}

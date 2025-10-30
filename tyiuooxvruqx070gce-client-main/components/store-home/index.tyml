@@ -1,0 +1,61 @@
+<view class="store-home">
+  <view class="box energy-box">
+    <view class="energy-header" bindtap="goEnergyInfo">
+      <view class="energy-title">
+        <view class="energy-icon-box">
+          <image class="energy-icon" src="/assets/images/comm/elc-icon.png" />
+        </view>
+        <text class="energy-text">{{i18n.t('energy_data')}}</text>
+      </view>
+      <image class="arrow-icon" src="/assets/images/comm/arrow-right.png" />
+    </view>
+    <view class="energy-item">
+      <text class="item-title">{{i18n.t('realtime_power')}}</text>
+      <text class="item-value">{{realTimePower}}kw</text>
+    </view>
+    <view class="energy-item energy-item-border">
+      <text class="item-title">{{i18n.t('today_energy')}}</text>
+      <text class="item-value">{{todayElectricity}}kw.h</text>
+    </view>
+    <view class="energy-item">
+      <text class="item-title">{{i18n.t('total_energy')}}</text>
+      <text class="item-value">{{totalElectricity}}kw.h</text>
+    </view>
+  </view>
+  <view class="box device-box">
+    <view class="device-header" bindtap="goDeviceStatus">
+      <view class="device-title">
+        <view class="device-icon-box">
+          <image class="device-icon" src="/assets/images/comm/device-status.png" />
+        </view>
+        <text class="device-text">{{i18n.t('device_status_summary')}}</text>
+      </view>
+    </view>
+    <view class="device-item device-item-border" bindtap="goHealthyDevice">
+      <text class="item-title">{{i18n.t('healthy_devices')}}：{{healthyCount}}</text>
+      <image class="arrow-icon" src="/assets/images/comm/arrow-right.png" />
+    </view>
+    <view class="device-item" bindtap="goFaultDevice">
+      <text class="item-title">{{i18n.t('fault_devices')}}：{{faultCount}}</text>
+      <image class="arrow-icon" src="/assets/images/comm/arrow-right.png" />
+    </view>
+  </view>
+  <view class="box run-box">
+    <view class="run-header">
+      <view class="run-title">
+        <view class="run-icon-box">
+          <image class="run-icon" src="/assets/images/comm/un-status.png" />
+        </view>
+        <text class="run-text">{{i18n.t('running_status')}}</text>
+      </view>
+    </view>
+    <view class="run-item run-item-border">
+      <text class="item-title">{{i18n.t('online_count')}}</text>
+      <text class="item-value">{{onlineCount}}</text>
+    </view>
+    <view class="run-item">
+      <text class="item-title">{{i18n.t('offline_count')}}</text>
+      <text class="item-value">{{offlineCount}}</text>
+    </view>
+  </view>
+</view>

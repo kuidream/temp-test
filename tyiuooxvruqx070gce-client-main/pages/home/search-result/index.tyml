@@ -1,0 +1,34 @@
+<view class="container">
+  <hs-header
+    title="{{i18n.t('select_store')}}"
+    hideBack="{{true}}"
+    leftImage="/assets/images/comm/person.png"
+    bindlefttap="toggleRolePopup"
+    rightImage="/assets/images/comm/call.png"
+    bind:righttap="onCall"
+  />
+  <view wx:if="{{showRolePopup}}" class="role-popup">
+    <view class="option {{role==='store'?'active':''}}" data-role="store" bindtap="onSelectRole"
+      >{{i18n.t('role_store_end')}}</view
+    >
+    <view class="option {{role==='install'?'active':''}}" data-role="install" bindtap="onSelectRole"
+      >{{i18n.t('role_install_end')}}</view
+    >
+  </view>
+  <view class="store-list">
+    <block ty:if="{{results.length}}">
+      <search-store-item
+        ty:for="{{results}}"
+        ty:key="storeId"
+        storeId="{{item.storeId}}"
+        storeName="{{item.storeName}}"
+        address="{{item.address}}"
+        contacts="{{item.contacts}}"
+        bind:getInto="onGetInto"
+      />
+    </block>
+    <block ty:else>
+      <view class="empty">{{i18n.t('no_data')}}</view>
+    </block>
+  </view>
+</view>

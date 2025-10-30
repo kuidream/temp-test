@@ -1,0 +1,48 @@
+{
+  "entryPagePath": "pages/home/index",
+  "themeLocation": "theme.json",
+  "pages": [
+    "pages/home/index",
+    "pages/home/search/index",
+    "pages/home/search-result/index",
+    "pages/store-detail/index",
+    "pages/energy-info/index",
+    "pages/healthy-device/index",
+    "pages/fault-device/index",
+    "pages/store-device/index",
+    "pages/meter/list/index",
+    "pages/meter/bound/index",
+    "pages/meter/select-circuit/index",
+    "pages/meter/bind/index",
+    "pages/device-detail/index",
+    "pages/mine/index",
+    "pages/change-password/index",
+    "pages/language/index",
+    "pages/settings/index",
+    "pages/account-info/index",
+    "pages/about/index",
+    "pages/install-device/bind/index",
+    "pages/install-device/index"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "@navBgColor",
+    "navigationBarTextStyle": "@navTxtStyle",
+    "navigationBarTitleText": "todomvc",
+    "backgroundColor": "@bgColor",
+    "backgroundTextStyle": "@bgTxtStyle",
+    "backgroundColorTop": "@bgColorTop",
+    "backgroundColorBottom": "@bgColorBottom",
+    "enablePullDownRefresh": false,
+    "onReachBottomDistance": 50,
+    "pageOrientation": "portrait",
+    "allowsBounceVertical": false,
+    "navigationStyle": "custom"
+  },
+  "networkTimeout": {
+    "request": 60000,
+    "connectSocket": 60000,
+    "uploadFile": 60000,
+    "downloadFile": 60000
+  },
+  "routers": ["config_device"]
+}

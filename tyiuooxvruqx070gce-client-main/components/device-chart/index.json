@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "date-range-calendar": "/components/date-range-calendar/index"
+  }
+}

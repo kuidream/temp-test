@@ -1,0 +1,46 @@
+<view class="meter-card">
+  <view class="left">
+    <view class="rect"></view>
+    <view class="dashed"></view>
+  </view>
+  <view class="content">
+    <view class="row first">
+      <!-- item.id序列号 -->
+      <text class="sn">{{storeDeviceNum}}</text>
+      <view class="tags">
+        <view
+          class="network-tag {{statusText === i18n.t('status_networked') || statusText === '已配网' ? 'networked' : ''}} {{statusText === i18n.t('status_bound') || statusText === '已绑定' ? 'bound' : ''}} {{statusText === i18n.t('status_unbound') || statusText === '已解绑' ? 'unbound' : ''}}"
+        >
+          {{statusText}}
+        </view>
+        <view class="status-tag {{online ? 'online' : 'offline'}}">
+          <view class="dot"></view>
+          <text>{{online ? i18n.t('online') : i18n.t('offline')}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="row device-name">{{name}}</view>
+    <view class="row bind-time">{{date}}</view>
+    <view class="row action-user" ty:if="{{userLabel}}">
+      <text class="action-user__label">{{userLabel}}</text>
+      <text class="action-user__value">{{userName}}</text>
+    </view>
+    <!-- 设备ID:deviceId -->
+    <view class="row device-id">ID: {{deviceId}}</view>
+    <view class="row circuit" ty:if="{{circuit}}">{{i18n.t('circuit')}}{{circuit}}</view>
+  </view>
+  <view class="right" ty:if="{{showSetting || showCheckbox}}">
+    <button class="setting-btn" ty:if="{{showSetting}}" catchtap="onSetting">
+      {{ buttonType === 'setting' ? i18n.t('settings') : buttonType === 'unbind' ? i18n.t('unbind')
+      : i18n.t('bind_device') }}
+    </button>
+    <checkbox-group ty:if="{{showCheckbox}}" bindchange="onSelect">
+      <checkbox
+        class="select-checkbox"
+        color="#015AC5"
+        value="{{deviceId}}"
+        checked="{{checked}}"
+      />
+    </checkbox-group>
+  </view>
+</view>

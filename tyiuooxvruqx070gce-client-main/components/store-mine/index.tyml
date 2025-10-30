@@ -1,0 +1,12 @@
+<view class="store-mine">
+  <view class="func-list">
+    <view class="func-item" bindtap="openMessageCenter">
+      <view class="label">{{i18n.t('mine_messages')}}</view>
+      <view class="arrow plus-icon-arrow"></view>
+    </view>
+    <view class="func-item" bindtap="openHelpCenter">
+      <view class="label">{{i18n.t('mine_help')}}</view>
+      <view class="arrow plus-icon-arrow"></view>
+    </view>
+  </view>
+</view>

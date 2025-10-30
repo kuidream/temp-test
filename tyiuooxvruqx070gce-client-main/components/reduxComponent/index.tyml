@@ -1,0 +1,1 @@
+<button bindtap="click" type="primary">{{i18n.t('click_action')}}</button>

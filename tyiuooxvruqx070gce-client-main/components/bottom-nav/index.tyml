@@ -1,0 +1,35 @@
+<view class="bottom-nav">
+  <view class="tab-item {{current === 'home' ? 'active' : ''}}" data-tab="home" bindtap="onTap">
+    <image
+      class="icon"
+      src="{{
+        current === 'home'
+          ? '/assets/images/comm/home-icon-act.png'
+          : '/assets/images/comm/home-icon.png'
+      }}"
+    />
+    <text class="text">{{i18n.t('home')}}</text>
+  </view>
+  <view class="tab-item {{current === 'device' ? 'active' : ''}}" data-tab="device" bindtap="onTap">
+    <image
+      class="icon"
+      src="{{
+        current === 'device'
+          ? '/assets/images/comm/home-device-act.png'
+          : '/assets/images/comm/home-device.png'
+      }}"
+    />
+    <text class="text">{{i18n.t('tab_device')}}</text>
+  </view>
+  <view class="tab-item {{current === 'mine' ? 'active' : ''}}" data-tab="mine" bindtap="onTap">
+    <image
+      class="icon"
+      src="{{
+        current === 'mine'
+          ? '/assets/images/comm/home-setting-act.png'
+          : '/assets/images/comm/home-setting.png'
+      }}"
+    />
+    <text class="text">{{i18n.t('personal_center')}}</text>
+  </view>
+</view>

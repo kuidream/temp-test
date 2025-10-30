@@ -1,0 +1,83 @@
+<page-container show="{{show}}" position="bottom" overlay round bindclickoverlay="handleClose">
+  <view class="region-popup">
+    <view class="region-header">
+      <view class="selected-box">
+        <text
+          class="{{stage === 'country' ? 'active' : ''}}"
+          data-stage="country"
+          bindtap="onStageClick"
+          >{{selectedCountryDisplay || selectedCountry || i18n.t('please_select')}}</text
+        >
+        <text
+          class="{{stage === 'province' ? 'active' : ''}}"
+          data-stage="province"
+          bindtap="onStageClick"
+          >{{selectedProvinceDisplay || selectedProvince || i18n.t('please_select')}}</text
+        >
+        <text
+          ty:if="{{hasCity}}"
+          class="{{stage === 'city' ? 'active' : ''}}"
+          data-stage="city"
+          bindtap="onStageClick"
+          >{{selectedCityDisplay || selectedCity || i18n.t('please_select')}}</text
+        >
+        <text
+          ty:if="{{hasArea}}"
+          class="{{stage === 'area' ? 'active' : ''}}"
+          data-stage="area"
+          bindtap="onStageClick"
+          >{{selectedAreaDisplay || selectedArea || i18n.t('please_select')}}</text
+        >
+        <text ty:if="{{stage === 'store'}}" class="select-store active"
+          >{{i18n.t('please_select')}}</text
+        >
+      </view>
+      <image
+        class="close-icon"
+        src="../../assets/images/comm/close-sel.png"
+        bindtap="handleClose"
+      ></image>
+    </view>
+    <scroll-view class="region-list" scroll-y>
+      <block ty:if="{{stage === 'store'}}">
+        <block ty:if="{{!storeListLoaded}}"></block>
+        <block ty:elif="{{currentList.length === 0}}">
+          <view class="no-store">{{i18n.t('no_store_info')}}</view>
+        </block>
+        <block ty:else>
+          <view
+            ty:for="{{currentList}}"
+            ty:key="index"
+            data-index="{{index}}"
+            class="region-item store-item"
+            bindtap="onSelect"
+          >
+            <text class="store-name">{{item.storeName}}</text>
+            <text class="store-code">{{i18n.t('store_number')}}{{item.storeId}}</text>
+            <image
+              ty:if="{{selectedStoreId === item.storeId}}"
+              class="selected-icon"
+              src="../../assets/images/comm/select-local.png"
+            ></image>
+          </view>
+        </block>
+      </block>
+      <block ty:else>
+        <view
+          ty:for="{{currentList}}"
+          ty:key="index"
+          data-index="{{index}}"
+          class="region-item"
+          bindtap="onSelect"
+        >
+          <text>{{item.displayName || item.name || item}}</text>
+          <image
+            ty:if="{{(stage === 'country' && selectedCountry === item.name) || (stage === 'province' && selectedProvince === (item.state || item.name)) || (stage === 'city' && selectedCity === item.name) || (stage === 'area' && selectedArea === (item.name || item))}}"
+            class="selected-icon"
+            src="../../assets/images/comm/select-local.png"
+          ></image>
+        </view>
+      </block>
+    </scroll-view>
+  </view>
+</page-container>

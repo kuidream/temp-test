@@ -1,0 +1,72 @@
+<view>
+  <view class="search-box" bindtap="openSearch">
+    <view class="location-icon plus-icon-location" catchtap="openLocation"></view>
+    <input
+      class="search-input"
+      placeholder="{{i18n.t('search_store_placeholder')}}"
+      value="{{address}}"
+      disabled
+    />
+    <view class="plus-icon-search search-icon"></view>
+  </view>
+  <view class="store-list">
+    <store-card
+      ty:for="{{storeList}}"
+      ty:key="storeCode"
+      storeCode="{{item.storeCode}}"
+      storeName="{{item.storeName}}"
+      address="{{item.address}}"
+      contacts="{{item.contacts}}"
+      bind:getInto="onGetInto"
+    />
+  </view>
+  <page-container
+    show="{{showPicker}}"
+    position="bottom"
+    round
+    overlay
+    bindclickoverlay="closePicker"
+  >
+    <view class="picker-popup">
+      <view class="popup-header">
+        <view class="close-btn plus-icon-close" bindtap="closePicker"></view>
+        <view class="selected-text"
+          >{{selectedProvince}} / {{selectedCity}} / {{selectedArea}}</view
+        >
+      </view>
+      <view class="region-wrapper">
+        <scroll-view class="region-column" scroll-y>
+          <view
+            ty:for="{{provinces}}"
+            class="region-item {{selectedProvinceIndex === index ? 'active' : ''}}"
+            data-index="{{index}}"
+            bindtap="selectProvince"
+          >
+            {{item.name}}
+          </view>
+        </scroll-view>
+        <scroll-view class="region-column" scroll-y>
+          <view
+            ty:for="{{cities}}"
+            class="region-item {{selectedCityIndex === index ? 'active' : ''}}"
+            data-index="{{index}}"
+            bindtap="selectCity"
+          >
+            {{item.name}}
+          </view>
+        </scroll-view>
+        <scroll-view class="region-column" scroll-y>
+          <view
+            ty:for="{{areas}}"
+            class="region-item {{selectedAreaIndex === index ? 'active' : ''}}"
+            data-index="{{index}}"
+            bindtap="selectArea"
+          >
+            {{item}}
+          </view>
+        </scroll-view>
+      </view>
+      <button class="confirm-btn" bindtap="confirmPicker">{{i18n.t('confirm')}}</button>
+    </view>
+  </page-container>
+</view>

@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "hs-header": "/components/header/index",
+    "search-store-item": "/components/search-store-item/index"
+  }
+}

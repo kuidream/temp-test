@@ -1,0 +1,21 @@
+<view class="container">
+  <hs-header title="{{i18n.t('about')}}" />
+  <view class="func-list">
+    <view class="func-item" bindtap="goDeveloper">
+      <view class="label">{{i18n.t('developer')}}</view>
+      <view class="arrow plus-icon-arrow"></view>
+    </view>
+    <view class="func-item" bindtap="goLicense">
+      <view class="label">{{i18n.t('open_source_license')}}</view>
+      <view class="arrow plus-icon-arrow"></view>
+    </view>
+    <view class="func-item" bindtap="uploadLog">
+      <view class="label">{{i18n.t('upload_log')}}</view>
+      <view class="arrow plus-icon-arrow"></view>
+    </view>
+    <view class="func-item">
+      <view class="label">{{i18n.t('current_version')}}</view>
+      <view class="value">{{version}}</view>
+    </view>
+  </view>
+</view>

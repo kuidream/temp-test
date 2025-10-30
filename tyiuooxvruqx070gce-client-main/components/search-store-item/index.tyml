@@ -1,0 +1,23 @@
+<view class="search-store-item">
+  <view class="store-header">
+    <image class="store-icon" src="/assets/images/comm/store-icon.png" />
+    <text class="store-name">{{storeName}}</text>
+  </view>
+
+  <view class="detail-box">
+    <view class="row">
+      <text class="label">{{i18n.t('store_code')}}</text>
+      <text class="value">{{storeId}}</text>
+    </view>
+    <view class="row">
+      <text class="label">{{i18n.t('store_address')}}</text>
+      <text class="value">{{address}}</text>
+    </view>
+    <view class="row">
+      <text class="label">{{i18n.t('contacts')}}</text>
+      <text class="value">{{contacts}}</text>
+    </view>
+  </view>
+
+  <button wx:if="{{showButton}}" class="get-btn" bindtap="onGetInto">{{i18n.t('get_into')}}</button>
+</view>
